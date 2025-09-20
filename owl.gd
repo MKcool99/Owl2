@@ -1,27 +1,28 @@
 extends Sprite2D
 
-# Speed at which the image moves
-var move_speed : int = 200
+# Quadratic function parameters
+var a: float = .002
+var b: float = -1
+var c: float = 200
 
-func _ready():
-	# Initial setup if necessary
-	pass
+var speed: float = 100
+var time: float = 0
+
+# Control flag: only true after key is pressed
+var is_flying: bool = false
 
 func _process(delta):
-	# Get input direction
-	var move_direction = Vector2.ZERO
-	
-	if Input.is_action_pressed("space"):
-		move_direction.x += 1
-	if Input.is_action_pressed("ui_left"):
-		move_direction.x -= 1
-	if Input.is_action_pressed("ui_down"):
-		move_direction.y += 1
-	if Input.is_action_pressed("ui_up"):
-		move_direction.y -= 1
-	
-	# Normalize direction to avoid faster movement diagonally
-	move_direction = move_direction.normalized()
+	# Wait for key press to start flying
+	if not is_flying and Input.is_action_just_pressed("Enter"):
+		is_flying = true
 
-	# Move the sprite
-	position += move_direction * move_speed * delta
+	# If flying, move along the quadratic path
+	if is_flying:
+		time += delta * speed
+		var x_position = time
+		var y_position = a * x_position * x_position + b * x_position + c
+		position = Vector2(x_position, y_position)
+		
+		# Optional: stop flying if off-screen
+		if x_position > 1000:
+			is_flying = false
