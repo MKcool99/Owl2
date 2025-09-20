@@ -9,11 +9,16 @@ extends Node2D
 # Graph settings
 const GRAPH_WIDTH = 1152  # Screen width
 const GRAPH_HEIGHT = 648  # Screen height
+
 const GRAPH_SCALE = 50    # Pixels per unit
 const LINE_COLOR = Color.CYAN
 const LINE_WIDTH = 2.0
 const AXIS_COLOR = Color(0.5, 0.5, 0.5, 0.8)
 const GRID_COLOR = Color(0.3, 0.3, 0.3, 0.5)
+
+# Mathematical constants
+const PI = 3.141592653589793
+const E = 2.718281828459045
 
 # Store current graphs for clearing
 var current_graphs: Array[Line2D] = []
