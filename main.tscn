@@ -22,3 +22,75 @@ texture = ExtResource("3_lquwl")
 position = Vector2(62, 375)
 texture = ExtResource("4_1bvp3")
 script = ExtResource("5_lquwl")
+
+[node name="EquationUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 400.0
+offset_bottom = 80.0
+
+[node name="Background" type="ColorRect" parent="EquationUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.1, 0.1, 0.1, 0.8)
+
+[node name="Label" type="Label" parent="EquationUI"]
+layout_mode = 1
+anchors_preset = 0
+offset_left = 10.0
+offset_top = 8.0
+offset_right = 100.0
+offset_bottom = 28.0
+text = "Equation:"
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 14
+
+[node name="EquationInput" type="LineEdit" parent="EquationUI"]
+layout_mode = 1
+anchors_preset = 0
+offset_left = 100.0
+offset_top = 5.0
+offset_right = 280.0
+offset_bottom = 30.0
+placeholder_text = "e.g., x^2, sin(x), 2*x+1"
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+
+[node name="PlotButton" type="Button" parent="EquationUI"]
+layout_mode = 1
+anchors_preset = 0
+offset_left = 290.0
+offset_top = 5.0
+offset_right = 380.0
+offset_bottom = 30.0
+text = "Plot Graph"
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 12
+
+[node name="ClearButton" type="Button" parent="EquationUI"]
+layout_mode = 1
+anchors_preset = 0
+offset_left = 290.0
+offset_top = 35.0
+offset_right = 380.0
+offset_bottom = 60.0
+text = "Clear All"
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 12
+
+[node name="HelpLabel" type="Label" parent="EquationUI"]
+layout_mode = 1
+anchors_preset = 0
+offset_left = 10.0
+offset_top = 35.0
+offset_right = 280.0
+offset_bottom = 65.0
+text = "Examples: x^2, sin(x), cos(x), x^3-2*x+1, abs(x), sqrt(x)"
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_font_sizes/font_size = 10
+autowrap_mode = 2
+
+[node name="GraphContainer" type="Node2D" parent="."]
