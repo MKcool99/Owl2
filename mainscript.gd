@@ -44,6 +44,10 @@ func _ready():
 	# Connect enter key in input field
 	equation_input.text_submitted.connect(_on_equation_submitted)
 	
+	# Ensure the Path2D has a Curve2D resource
+	if not graph_path.curve:
+		graph_path.curve = Curve2D.new()
+
 	# Draw coordinate system
 	_draw_coordinate_system()
 	
