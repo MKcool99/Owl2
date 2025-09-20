@@ -57,5 +57,94 @@ texture = ExtResource("6_7mycd")
 [node name="pillarArea2D" type="Area2D" parent="pillar"]
 script = ExtResource("8_kek77")
 
+<<<<<<< Updated upstream
 [node name="CollisionShape2D" type="CollisionShape2D" parent="pillar/pillarArea2D"]
 shape = SubResource("RectangleShape2D_272bh")
+=======
+[node name="EquationInput" type="LineEdit" parent="EquationUI"]
+layout_mode = 1
+offset_left = 100.0
+offset_top = 5.0
+offset_right = 280.0
+offset_bottom = 30.0
+theme_override_colors/font_color = Color(0.45526773, 0.45526773, 0.45526773, 1)
+placeholder_text = "e.g., x^2, sin(x), 2*x+1"
+
+[node name="PlotButton" type="Button" parent="EquationUI"]
+layout_mode = 1
+offset_left = 290.0
+offset_top = 5.0
+offset_right = 380.0
+offset_bottom = 30.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 12
+text = "Plot Graph"
+
+[node name="ClearButton" type="Button" parent="EquationUI"]
+layout_mode = 1
+offset_left = 290.0
+offset_top = 35.0
+offset_right = 380.0
+offset_bottom = 60.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 12
+text = "Clear All"
+
+[node name="HelpLabel" type="Label" parent="EquationUI"]
+layout_mode = 1
+offset_left = 10.0
+offset_top = 35.0
+offset_right = 280.0
+offset_bottom = 65.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 18
+text = "Examples: x^2, sin(x), cos(x), x^3-2*x+1, abs(x), sqrt(x)"
+autowrap_mode = 2
+
+[node name="GraphContainer" type="Node2D" parent="."]
+
+[node name="Column" type="Sprite2D" parent="."]
+position = Vector2(240.43752, 516.81256)
+scale = Vector2(0.29408732, 0.2489131)
+texture = ExtResource("8_kek77")
+
+[node name="columnArea" type="Area2D" parent="Column"]
+script = ExtResource("7_5vw27")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Column/columnArea"]
+shape = SubResource("RectangleShape2D_4c57u")
+
+[node name="Column2" type="Sprite2D" parent="."]
+position = Vector2(383.43756, 516.81256)
+scale = Vector2(0.29408732, 0.2489131)
+texture = ExtResource("8_kek77")
+
+[node name="columnArea" type="Area2D" parent="Column2"]
+script = ExtResource("7_5vw27")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Column2/columnArea"]
+shape = SubResource("RectangleShape2D_4c57u")
+
+[node name="Column3" type="Sprite2D" parent="."]
+position = Vector2(528.4375, 516.81256)
+scale = Vector2(0.29408732, 0.2489131)
+texture = ExtResource("8_kek77")
+
+[node name="columnArea" type="Area2D" parent="Column3"]
+script = ExtResource("7_5vw27")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Column3/columnArea"]
+shape = SubResource("RectangleShape2D_4c57u")
+
+[node name="tree" type="Sprite2D" parent="."]
+position = Vector2(970.32776, 413.39676)
+scale = Vector2(0.19662654, 0.17953596)
+texture = ExtResource("9_kek77")
+
+[node name="treeArea" type="Area2D" parent="tree"]
+script = ExtResource("7_5vw27")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="tree/treeArea"]
+position = Vector2(44.105164, -141.4578)
+shape = SubResource("CircleShape2D_4c57u")
+>>>>>>> Stashed changes
