@@ -1,23 +1,19 @@
-[gd_scene load_steps=13 format=3 uid="uid://dmnne71810kha"]
+[gd_scene load_steps=11 format=3 uid="uid://dmnne71810kha"]
 
 [ext_resource type="Script" uid="uid://b6h1ihcp2gco2" path="res://mainscript.gd" id="1_h2yge"]
 [ext_resource type="Texture2D" uid="uid://cwhdlgma22br" path="res://owlbg.jpg" id="2_1bvp3"]
-[ext_resource type="Texture2D" uid="uid://laxkbj2g3k0o" path="res://levowl1.png" id="3_5vw27"]
 [ext_resource type="Texture2D" uid="uid://nm87fxqau25y" path="res://Sine.png" id="4_1bvp3"]
+[ext_resource type="Script" uid="uid://bg4sq0kup3bxl" path="res://area_2d.gd" id="5_5vw27"]
+[ext_resource type="Script" uid="uid://ckd75vc8oyjuo" path="res://line_edit.gd" id="5_7mycd"]
 [ext_resource type="Script" uid="uid://dkj0ukpv3a65w" path="res://owl.gd" id="5_lquwl"]
-[ext_resource type="Script" uid="uid://c841twglxmhhd" path="res://sprite_2d.gd" id="6_272bh"]
-[ext_resource type="Script" uid="uid://bg4sq0kup3bxl" path="res://area_2d.gd" id="7_5vw27"]
-[ext_resource type="Texture2D" uid="uid://dh3pq86oa3fwe" path="res://realcolumn.png" id="8_kek77"]
-[ext_resource type="Texture2D" uid="uid://dpd4jf7how6tj" path="res://finaltree.png" id="9_kek77"]
+[ext_resource type="Texture2D" uid="uid://dh3pq86oa3fwe" path="res://realcolumn.png" id="6_7mycd"]
+[ext_resource type="Script" uid="uid://dpig0mhtpunln" path="res://pillar_area_2d.gd" id="8_kek77"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_kek77"]
-radius = 14.88
+[sub_resource type="CircleShape2D" id="CircleShape2D_7mycd"]
+radius = 15.38
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4c57u"]
-size = Vector2(140, 1000)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_4c57u"]
-radius = 823.34314
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_272bh"]
+size = Vector2(150, 1000)
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_h2yge")
@@ -27,59 +23,51 @@ position = Vector2(576, 323.5)
 scale = Vector2(0.60416675, 0.6739583)
 texture = ExtResource("2_1bvp3")
 
-[node name="Title" type="Sprite2D" parent="."]
-position = Vector2(710, 47)
-texture = ExtResource("3_5vw27")
-
-[node name="GraphPath" type="Path2D" parent="."]
-
-[node name="Owl" type="PathFollow2D" parent="GraphPath"]
+[node name="owl" type="Sprite2D" parent="."]
+position = Vector2(68, 382.5)
+scale = Vector2(1.3749999, 1.4687498)
+texture = ExtResource("4_1bvp3")
 script = ExtResource("5_lquwl")
 
-[node name="Owl2D" type="Sprite2D" parent="GraphPath/Owl"]
-texture = ExtResource("4_1bvp3")
-script = ExtResource("6_272bh")
+[node name="Area2D" type="Area2D" parent="owl"]
+script = ExtResource("5_5vw27")
 
-[node name="owlArea" type="Area2D" parent="GraphPath/Owl/Owl2D"]
-script = ExtResource("7_5vw27")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="owl/Area2D"]
+shape = SubResource("CircleShape2D_7mycd")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GraphPath/Owl/Owl2D/owlArea"]
-shape = SubResource("CircleShape2D_kek77")
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="EquationUI" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 400.0
-offset_bottom = 80.0
+[node name="FunctionInput" type="LineEdit" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_left = 0.07700001
+anchor_top = 0.19100001
+anchor_right = 0.07700001
+anchor_bottom = 0.19100001
+offset_left = -66.70401
+offset_top = 425.232
+offset_right = 1047.296
+offset_bottom = 499.232
+script = ExtResource("5_7mycd")
 
-[node name="Background" type="ColorRect" parent="EquationUI"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.1, 0.1, 0.1, 0.8)
+[node name="pillar" type="Sprite2D" parent="."]
+position = Vector2(306, 400)
+scale = Vector2(0.29356843, 0.47850242)
+texture = ExtResource("6_7mycd")
 
-[node name="Label" type="Label" parent="EquationUI"]
-layout_mode = 1
-offset_left = 10.0
-offset_top = 8.0
-offset_right = 100.0
-offset_bottom = 28.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 14
-text = "Equation:"
+[node name="pillarArea2D" type="Area2D" parent="pillar"]
+script = ExtResource("8_kek77")
 
+<<<<<<< Updated upstream
+[node name="CollisionShape2D" type="CollisionShape2D" parent="pillar/pillarArea2D"]
+shape = SubResource("RectangleShape2D_272bh")
+=======
 [node name="EquationInput" type="LineEdit" parent="EquationUI"]
 layout_mode = 1
 offset_left = 100.0
 offset_top = 5.0
 offset_right = 280.0
 offset_bottom = 30.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0.45526773, 0.45526773, 0.45526773, 1)
 placeholder_text = "e.g., x^2, sin(x), 2*x+1"
 
 [node name="PlotButton" type="Button" parent="EquationUI"]
@@ -159,3 +147,4 @@ script = ExtResource("7_5vw27")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="tree/treeArea"]
 position = Vector2(44.105164, -141.4578)
 shape = SubResource("CircleShape2D_4c57u")
+>>>>>>> Stashed changes
