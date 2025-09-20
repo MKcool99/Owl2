@@ -135,6 +135,7 @@ func _clear_graphs():
 	_draw_coordinate_system()
 
 func _plot_equation():
+	_clear_graphs() # Clear previous graphs
 	var equation = equation_input.text.strip_edges()
 	if equation.is_empty():
 		return
