@@ -1,10 +1,23 @@
-[gd_scene load_steps=6 format=3 uid="uid://dmnne71810kha"]
+[gd_scene load_steps=13 format=3 uid="uid://dmnne71810kha"]
 
 [ext_resource type="Script" uid="uid://b6h1ihcp2gco2" path="res://mainscript.gd" id="1_h2yge"]
 [ext_resource type="Texture2D" uid="uid://cwhdlgma22br" path="res://owlbg.jpg" id="2_1bvp3"]
-[ext_resource type="Texture2D" uid="uid://nso5sg82ejam" path="res://title.png" id="3_lquwl"]
+[ext_resource type="Texture2D" uid="uid://laxkbj2g3k0o" path="res://levowl1.png" id="3_5vw27"]
 [ext_resource type="Texture2D" uid="uid://nm87fxqau25y" path="res://Sine.png" id="4_1bvp3"]
 [ext_resource type="Script" uid="uid://dkj0ukpv3a65w" path="res://owl.gd" id="5_lquwl"]
+[ext_resource type="Script" uid="uid://c841twglxmhhd" path="res://sprite_2d.gd" id="6_272bh"]
+[ext_resource type="Script" uid="uid://bg4sq0kup3bxl" path="res://area_2d.gd" id="7_5vw27"]
+[ext_resource type="Texture2D" uid="uid://dh3pq86oa3fwe" path="res://realcolumn.png" id="8_kek77"]
+[ext_resource type="Texture2D" uid="uid://dpd4jf7how6tj" path="res://finaltree.png" id="9_kek77"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kek77"]
+radius = 14.88
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4c57u"]
+size = Vector2(140, 1000)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4c57u"]
+radius = 823.34314
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_h2yge")
@@ -15,16 +28,23 @@ scale = Vector2(0.60416675, 0.6739583)
 texture = ExtResource("2_1bvp3")
 
 [node name="Title" type="Sprite2D" parent="."]
-position = Vector2(577, 54)
-texture = ExtResource("3_lquwl")
+position = Vector2(710, 47)
+texture = ExtResource("3_5vw27")
 
 [node name="GraphPath" type="Path2D" parent="."]
 
 [node name="Owl" type="PathFollow2D" parent="GraphPath"]
 script = ExtResource("5_lquwl")
 
-[node name="Sprite2D" type="Sprite2D" parent="GraphPath/Owl"]
+[node name="Owl2D" type="Sprite2D" parent="GraphPath/Owl"]
 texture = ExtResource("4_1bvp3")
+script = ExtResource("6_272bh")
+
+[node name="owlArea" type="Area2D" parent="GraphPath/Owl/Owl2D"]
+script = ExtResource("7_5vw27")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GraphPath/Owl/Owl2D/owlArea"]
+shape = SubResource("CircleShape2D_kek77")
 
 [node name="EquationUI" type="Control" parent="."]
 layout_mode = 3
@@ -39,61 +59,103 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 color = Color(0.1, 0.1, 0.1, 0.8)
 
 [node name="Label" type="Label" parent="EquationUI"]
 layout_mode = 1
-anchors_preset = 0
 offset_left = 10.0
 offset_top = 8.0
 offset_right = 100.0
 offset_bottom = 28.0
-text = "Equation:"
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 14
+text = "Equation:"
 
 [node name="EquationInput" type="LineEdit" parent="EquationUI"]
 layout_mode = 1
-anchors_preset = 0
 offset_left = 100.0
 offset_top = 5.0
 offset_right = 280.0
 offset_bottom = 30.0
-placeholder_text = "e.g., x^2, sin(x), 2*x+1"
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+placeholder_text = "e.g., x^2, sin(x), 2*x+1"
 
 [node name="PlotButton" type="Button" parent="EquationUI"]
 layout_mode = 1
-anchors_preset = 0
 offset_left = 290.0
 offset_top = 5.0
 offset_right = 380.0
 offset_bottom = 30.0
-text = "Plot Graph"
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 12
+text = "Plot Graph"
 
 [node name="ClearButton" type="Button" parent="EquationUI"]
 layout_mode = 1
-anchors_preset = 0
 offset_left = 290.0
 offset_top = 35.0
 offset_right = 380.0
 offset_bottom = 60.0
-text = "Clear All"
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 12
+text = "Clear All"
 
 [node name="HelpLabel" type="Label" parent="EquationUI"]
 layout_mode = 1
-anchors_preset = 0
 offset_left = 10.0
 offset_top = 35.0
 offset_right = 280.0
 offset_bottom = 65.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 18
 text = "Examples: x^2, sin(x), cos(x), x^3-2*x+1, abs(x), sqrt(x)"
-theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
-theme_override_font_sizes/font_size = 10
 autowrap_mode = 2
 
 [node name="GraphContainer" type="Node2D" parent="."]
+
+[node name="Column" type="Sprite2D" parent="."]
+position = Vector2(240.43752, 516.81256)
+scale = Vector2(0.29408732, 0.2489131)
+texture = ExtResource("8_kek77")
+
+[node name="columnArea" type="Area2D" parent="Column"]
+script = ExtResource("7_5vw27")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Column/columnArea"]
+shape = SubResource("RectangleShape2D_4c57u")
+
+[node name="Column2" type="Sprite2D" parent="."]
+position = Vector2(383.43756, 516.81256)
+scale = Vector2(0.29408732, 0.2489131)
+texture = ExtResource("8_kek77")
+
+[node name="columnArea" type="Area2D" parent="Column2"]
+script = ExtResource("7_5vw27")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Column2/columnArea"]
+shape = SubResource("RectangleShape2D_4c57u")
+
+[node name="Column3" type="Sprite2D" parent="."]
+position = Vector2(528.4375, 516.81256)
+scale = Vector2(0.29408732, 0.2489131)
+texture = ExtResource("8_kek77")
+
+[node name="columnArea" type="Area2D" parent="Column3"]
+script = ExtResource("7_5vw27")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Column3/columnArea"]
+shape = SubResource("RectangleShape2D_4c57u")
+
+[node name="tree" type="Sprite2D" parent="."]
+position = Vector2(970.32776, 413.39676)
+scale = Vector2(0.19662654, 0.17953596)
+texture = ExtResource("9_kek77")
+
+[node name="treeArea" type="Area2D" parent="tree"]
+script = ExtResource("7_5vw27")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="tree/treeArea"]
+position = Vector2(44.105164, -141.4578)
+shape = SubResource("CircleShape2D_4c57u")

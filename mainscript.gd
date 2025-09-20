@@ -84,7 +84,7 @@ func _draw_coordinate_system():
 	axis_lines.clear()
 	grid_lines.clear()
 	
-	var center_x = GRAPH_WIDTH / 2.0
+	var center_x = 0
 	var center_y = GRAPH_HEIGHT / 2.0
 	
 	# Draw main axes
