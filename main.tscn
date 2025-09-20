@@ -1,19 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://dmnne71810kha"]
+[gd_scene load_steps=6 format=3 uid="uid://dmnne71810kha"]
 
 [ext_resource type="Script" uid="uid://b6h1ihcp2gco2" path="res://mainscript.gd" id="1_h2yge"]
 [ext_resource type="Texture2D" uid="uid://cwhdlgma22br" path="res://owlbg.jpg" id="2_1bvp3"]
+[ext_resource type="Texture2D" uid="uid://nso5sg82ejam" path="res://title.png" id="3_lquwl"]
 [ext_resource type="Texture2D" uid="uid://nm87fxqau25y" path="res://Sine.png" id="4_1bvp3"]
-[ext_resource type="Script" uid="uid://bg4sq0kup3bxl" path="res://area_2d.gd" id="5_5vw27"]
-[ext_resource type="Script" uid="uid://ckd75vc8oyjuo" path="res://line_edit.gd" id="5_7mycd"]
 [ext_resource type="Script" uid="uid://dkj0ukpv3a65w" path="res://owl.gd" id="5_lquwl"]
-[ext_resource type="Texture2D" uid="uid://dh3pq86oa3fwe" path="res://realcolumn.png" id="6_7mycd"]
-[ext_resource type="Script" uid="uid://dpig0mhtpunln" path="res://pillar_area_2d.gd" id="8_kek77"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_7mycd"]
-radius = 15.38
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_272bh"]
-size = Vector2(150, 1000)
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_h2yge")
@@ -23,8 +14,11 @@ position = Vector2(576, 323.5)
 scale = Vector2(0.60416675, 0.6739583)
 texture = ExtResource("2_1bvp3")
 
+[node name="Title" type="Sprite2D" parent="."]
+position = Vector2(577, 54)
+texture = ExtResource("3_lquwl")
+
 [node name="owl" type="Sprite2D" parent="."]
-position = Vector2(68, 382.5)
-scale = Vector2(1.3749999, 1.4687498)
+position = Vector2(62, 375)
 texture = ExtResource("4_1bvp3")
 script = ExtResource("5_lquwl")
