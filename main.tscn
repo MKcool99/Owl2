@@ -18,7 +18,9 @@ texture = ExtResource("2_1bvp3")
 position = Vector2(577, 54)
 texture = ExtResource("3_lquwl")
 
-[node name="owl" type="Sprite2D" parent="."]
+[node name="GraphPath" type="Path2D" parent="."]
+
+[node name="Owl" type="PathFollow2D" parent="GraphPath"]
 position = Vector2(62, 375)
 texture = ExtResource("4_1bvp3")
 script = ExtResource("5_lquwl")
