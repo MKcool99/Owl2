@@ -1,0 +1,12 @@
+res://mainmenu.tscn
+res://title.gd
+res://mainscript.gd
+res://main.tscn
+res://owl.gd
+res://play_button.gd
+res://level_select.gd
+res://mainmenu/mainmenu.tscn
+res://mainmenu/levelselect.tscn
+res://levelselect.tscn
+res://mainmenu/level_select_button.gd
+res://levelselect/levelselect.tscn
