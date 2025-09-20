@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://chr026ykryme0"]
+
+[ext_resource type="Script" uid="uid://bfrxidc4x3yp0" path="res://mainmenu/play_button.gd" id="1_fs0yk"]
+[ext_resource type="Script" uid="uid://dx4xfi2g0ccop" path="res://mainmenu/level_select.gd" id="2_y3h2u"]
+[ext_resource type="Texture2D" uid="uid://nso5sg82ejam" path="res://title.png" id="3_q1xyx"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="PlayButton" type="Button" parent="."]
+offset_left = 362.0
+offset_top = 275.0
+offset_right = 762.0
+offset_bottom = 422.0
+theme_override_font_sizes/font_size = 70
+text = "Play"
+script = ExtResource("1_fs0yk")
+
+[node name="LevelSelectButton" type="Button" parent="."]
+offset_left = 362.0
+offset_top = 454.0
+offset_right = 765.0
+offset_bottom = 601.0
+theme_override_font_sizes/font_size = 70
+text = "Level Select"
+script = ExtResource("2_y3h2u")
+
+[node name="Title" type="Sprite2D" parent="."]
+position = Vector2(600, 90)
+scale = Vector2(2.2500002, 2.2500002)
+texture = ExtResource("3_q1xyx")
+
+[connection signal="pressed" from="PlayButton" to="PlayButton" method="_on_pressed"]
+[connection signal="pressed" from="LevelSelectButton" to="LevelSelectButton" method="_on_pressed"]

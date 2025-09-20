@@ -1,5 +1,10 @@
 extends Node2D
 
+# Change scenes on keypress (temporary)
+func _input(event: InputEvent) -> void:
+	if Input.is_key_pressed(KEY_C):
+		get_tree().change_scene_to_file("res://mainmenu/mainmenu.tscn")
+
 # References to UI elements
 @onready var equation_input: LineEdit = $EquationUI/EquationInput
 @onready var plot_button: Button = $EquationUI/PlotButton
