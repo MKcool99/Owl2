@@ -1,0 +1,76 @@
+[gd_scene load_steps=9 format=3 uid="uid://d2pmeis07v5v3"]
+
+[ext_resource type="Texture2D" uid="uid://dpd4jf7how6tj" path="res://finaltree.png" id="1_26ld4"]
+[ext_resource type="PackedScene" uid="uid://brvkvshwp4k7f" path="res://levelselect/thumbnailbutton.tscn" id="2_jxds4"]
+[ext_resource type="Texture2D" uid="uid://crjuyqih8sjiv" path="res://levelselect/thumbnail1.webp" id="3_alxek"]
+[ext_resource type="Texture2D" uid="uid://cxwwyay72j1hd" path="res://levelselect/thumbnail3.webp" id="4_4o8rm"]
+[ext_resource type="Texture2D" uid="uid://clbgpfeqgwyn5" path="res://levelselect/thumbnail2.webp" id="4_67sp7"]
+[ext_resource type="Script" uid="uid://lxasbcirt5qu" path="res://levelselect/thumbnailbutton.gd" id="4_hngs5"]
+[ext_resource type="Texture2D" uid="uid://pw72upqvtwi5" path="res://levelselect/thumbnail4.webp" id="5_67sp7"]
+[ext_resource type="Texture2D" uid="uid://1qyhyh6a4ip4" path="res://levelselect/thumbnail5.webp" id="7_hngs5"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Finaltree" type="Sprite2D" parent="."]
+position = Vector2(577.99994, 260)
+scale = Vector2(1.2162455, 1.0838462)
+texture = ExtResource("1_26ld4")
+
+[node name="thumbnailbutton1" parent="." instance=ExtResource("2_jxds4")]
+offset_left = 110.0
+offset_top = 72.0
+offset_right = 470.0
+offset_bottom = 632.0
+scale = Vector2(0.5, 0.5)
+texture_normal = ExtResource("3_alxek")
+script = ExtResource("4_hngs5")
+
+[node name="thumbnailbutton2" parent="." instance=ExtResource("2_jxds4")]
+offset_left = 290.0
+offset_top = 72.0
+offset_right = 650.0
+offset_bottom = 632.0
+scale = Vector2(0.5, 0.5)
+texture_normal = ExtResource("4_67sp7")
+script = ExtResource("4_hngs5")
+
+[node name="thumbnailbutton3" parent="." instance=ExtResource("2_jxds4")]
+offset_left = 470.0
+offset_top = 72.0
+offset_right = 830.0
+offset_bottom = 632.0
+scale = Vector2(0.5, 0.5)
+texture_normal = ExtResource("4_4o8rm")
+script = ExtResource("4_hngs5")
+
+[node name="thumbnailbutton4" parent="." instance=ExtResource("2_jxds4")]
+offset_left = 650.0
+offset_top = 72.0
+offset_right = 1010.0
+offset_bottom = 632.0
+scale = Vector2(0.5, 0.5)
+texture_normal = ExtResource("5_67sp7")
+script = ExtResource("4_hngs5")
+
+[node name="thumbnailbutton5" parent="." instance=ExtResource("2_jxds4")]
+offset_left = 830.0
+offset_top = 72.0
+offset_right = 1190.0
+offset_bottom = 632.0
+scale = Vector2(0.5, 0.5)
+texture_normal = ExtResource("7_hngs5")
+script = ExtResource("4_hngs5")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = 289.0
+offset_top = 440.0
+offset_right = 1548.0
+offset_bottom = 598.0
+theme_override_font_sizes/normal_font_size = 100
+text = "Level Select"
+
+[connection signal="pressed" from="thumbnailbutton1" to="thumbnailbutton1" method="_on_pressed_1"]
+[connection signal="pressed" from="thumbnailbutton2" to="thumbnailbutton2" method="_on_pressed_2"]
+[connection signal="pressed" from="thumbnailbutton3" to="thumbnailbutton3" method="_on_pressed_3"]
+[connection signal="pressed" from="thumbnailbutton4" to="thumbnailbutton4" method="_on_pressed_4"]
+[connection signal="pressed" from="thumbnailbutton5" to="thumbnailbutton5" method="_on_pressed_5"]
