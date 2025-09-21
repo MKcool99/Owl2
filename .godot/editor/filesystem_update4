@@ -1,1 +1,5 @@
 res://mainscript.gd
+res://mainmenu/mainmenu.tscn
+res://mainmenu/title.gd
+res://mainmenu/sine.gd
+res://mainmenu/play_button.gd
