@@ -40,7 +40,7 @@ var owl_following = false
 
 var ai_owl_scene: PackedScene = preload("res://ai_owl.tscn")
 var ai_owl: Node2D = null
-@onready var ai_function_label: Label = $EquationUI/AIFunctionLabel
+@onready var ai_function_label: Label = $EquationUI/VBoxContainer/AIFunctionLabel
 
 func _ready():
 	# Connect button signals
@@ -61,10 +61,7 @@ func _ready():
 	owl.visible = false
 
 	# Add a new label for the AI function
-	ai_function_label = Label.new()
-	ai_function_label.position = Vector2(10, 65)
 	ai_function_label.text = "AI Owl Function: "
-	$EquationUI.add_child(ai_function_label)
 
 func _process(delta):
 	if owl_following and total_path_length > 0:
