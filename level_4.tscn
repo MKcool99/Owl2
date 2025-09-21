@@ -1,53 +1,51 @@
-[gd_scene load_steps=14 format=3 uid="uid://8qdmgajdt1it"]
+[gd_scene load_steps=14 format=3 uid="uid://c606k8k0thimg"]
 
-[ext_resource type="Script" uid="uid://dv666m0812i61" path="res://level_1.gd" id="1_b60u5"]
-[ext_resource type="Texture2D" uid="uid://cwhdlgma22br" path="res://owlbg.jpg" id="1_liaj6"]
-[ext_resource type="Texture2D" uid="uid://cmq82ka2vwltw" path="res://levowl3.png" id="2_b60u5"]
-[ext_resource type="Script" uid="uid://dkj0ukpv3a65w" path="res://owl.gd" id="3_kmy7e"]
-[ext_resource type="Texture2D" uid="uid://nm87fxqau25y" path="res://Sine.png" id="4_833wy"]
-[ext_resource type="Script" uid="uid://bg4sq0kup3bxl" path="res://area_2d.gd" id="5_ghrvs"]
-[ext_resource type="Texture2D" uid="uid://dpd4jf7how6tj" path="res://finaltree.png" id="6_jvy75"]
-[ext_resource type="Script" uid="uid://chsgc62ibag0q" path="res://tree_area3.gd" id="8_b60u5"]
-[ext_resource type="Texture2D" uid="uid://dh3pq86oa3fwe" path="res://realcolumn.png" id="8_keufu"]
-[ext_resource type="Script" uid="uid://dmdgn2ksty1pf" path="res://pillar_area.gd" id="9_joegk"]
+[ext_resource type="Texture2D" uid="uid://cwhdlgma22br" path="res://owlbg.jpg" id="1_66w8i"]
+[ext_resource type="Script" uid="uid://dv666m0812i61" path="res://level_1.gd" id="1_80qnk"]
+[ext_resource type="Texture2D" uid="uid://c356dkmahdodq" path="res://levowl4.png" id="2_66w8i"]
+[ext_resource type="Script" uid="uid://dkj0ukpv3a65w" path="res://owl.gd" id="3_cicwn"]
+[ext_resource type="Texture2D" uid="uid://nm87fxqau25y" path="res://Sine.png" id="4_lj1an"]
+[ext_resource type="Script" uid="uid://bg4sq0kup3bxl" path="res://area_2d.gd" id="5_rrs1j"]
+[ext_resource type="Texture2D" uid="uid://dpd4jf7how6tj" path="res://finaltree.png" id="6_xxbfp"]
+[ext_resource type="Script" uid="uid://uiixgj3t5uyk" path="res://tree_area4.gd" id="7_0yqnl"]
+[ext_resource type="Texture2D" uid="uid://dh3pq86oa3fwe" path="res://realcolumn.png" id="8_45t7y"]
+[ext_resource type="Script" uid="uid://dmdgn2ksty1pf" path="res://pillar_area.gd" id="9_lv3ay"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_m8gss"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_2vyst"]
 radius = 16.56
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_wnq0t"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_i4yqx"]
 radius = 782.66
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_liaj6"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j0u7p"]
 size = Vector2(138.263, 1012.3186)
 
-[node name="level3" type="Node2D"]
-position = Vector2(-10, 0)
-scale = Vector2(1, 0.99371433)
-script = ExtResource("1_b60u5")
+[node name="level_4" type="Node2D"]
+script = ExtResource("1_80qnk")
 
 [node name="Owlbg" type="Sprite2D" parent="."]
 position = Vector2(576, 323.5)
 scale = Vector2(0.604167, 0.673958)
-texture = ExtResource("1_liaj6")
+texture = ExtResource("1_66w8i")
 
 [node name="Title" type="Sprite2D" parent="."]
-position = Vector2(663.5, 49.500004)
+position = Vector2(663, 49.999996)
 scale = Vector2(1.2809918, 1.3265306)
-texture = ExtResource("2_b60u5")
+texture = ExtResource("2_66w8i")
 
 [node name="GraphPath" type="Path2D" parent="."]
 
 [node name="Owl" type="PathFollow2D" parent="GraphPath"]
-script = ExtResource("3_kmy7e")
+script = ExtResource("3_cicwn")
 
 [node name="Sprite2D" type="Sprite2D" parent="GraphPath/Owl"]
-texture = ExtResource("4_833wy")
+texture = ExtResource("4_lj1an")
 
 [node name="OwlArea" type="Area2D" parent="GraphPath/Owl/Sprite2D"]
-script = ExtResource("5_ghrvs")
+script = ExtResource("5_rrs1j")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GraphPath/Owl/Sprite2D/OwlArea"]
-shape = SubResource("CircleShape2D_m8gss")
+shape = SubResource("CircleShape2D_2vyst")
 
 [node name="EquationUI" type="Control" parent="."]
 layout_mode = 3
@@ -127,47 +125,60 @@ metadata/_edit_use_anchors_ = true
 [node name="Tree" type="Sprite2D" parent="."]
 position = Vector2(980.99994, 424)
 scale = Vector2(0.19792417, 0.17124997)
-texture = ExtResource("6_jvy75")
+texture = ExtResource("6_xxbfp")
 
 [node name="TreeArea" type="Area2D" parent="Tree"]
-script = ExtResource("8_b60u5")
+position = Vector2(60.62958, -29.197084)
+script = ExtResource("7_0yqnl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Tree/TreeArea"]
 position = Vector2(8.069676, -70.7483)
-shape = SubResource("CircleShape2D_wnq0t")
+shape = SubResource("CircleShape2D_i4yqx")
 
 [node name="Pillar" type="Sprite2D" parent="."]
-position = Vector2(529, 149.94249)
-scale = Vector2(0.18399891, 0.2950181)
-texture = ExtResource("8_keufu")
+position = Vector2(350, 111)
+scale = Vector2(0.18399891, -0.06498173)
+texture = ExtResource("8_45t7y")
 
 [node name="PillarArea" type="Area2D" parent="Pillar"]
-script = ExtResource("9_joegk")
+script = ExtResource("9_lv3ay")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Pillar/PillarArea"]
 scale = Vector2(1, 1.0000001)
-shape = SubResource("RectangleShape2D_liaj6")
+shape = SubResource("RectangleShape2D_j0u7p")
 
 [node name="Pillar2" type="Sprite2D" parent="."]
-position = Vector2(349.00003, 495.11215)
-scale = Vector2(0.18454938, -0.34903017)
-texture = ExtResource("8_keufu")
+position = Vector2(355, 484)
+scale = Vector2(0.18454938, -0.46903017)
+texture = ExtResource("8_45t7y")
 
 [node name="PillarArea" type="Area2D" parent="Pillar2"]
-script = ExtResource("9_joegk")
+script = ExtResource("9_lv3ay")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Pillar2/PillarArea"]
 scale = Vector2(1, 1.0000001)
-shape = SubResource("RectangleShape2D_liaj6")
+shape = SubResource("RectangleShape2D_j0u7p")
 
 [node name="Pillar3" type="Sprite2D" parent="."]
 position = Vector2(667, 495.11215)
 scale = Vector2(0.18399891, 0.37552413)
-texture = ExtResource("8_keufu")
+texture = ExtResource("8_45t7y")
 
 [node name="PillarArea" type="Area2D" parent="Pillar3"]
-script = ExtResource("9_joegk")
+script = ExtResource("9_lv3ay")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Pillar3/PillarArea"]
 scale = Vector2(1, 1.0000001)
-shape = SubResource("RectangleShape2D_liaj6")
+shape = SubResource("RectangleShape2D_j0u7p")
+
+[node name="Pillar4" type="Sprite2D" parent="."]
+position = Vector2(667, 8)
+scale = Vector2(0.18399891, 0.37552413)
+texture = ExtResource("8_45t7y")
+
+[node name="PillarArea" type="Area2D" parent="Pillar4"]
+script = ExtResource("9_lv3ay")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pillar4/PillarArea"]
+scale = Vector2(1, 1.0000001)
+shape = SubResource("RectangleShape2D_j0u7p")
