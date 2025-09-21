@@ -19,12 +19,13 @@ func _on_area_entered(area):
 			
 			# Zoom and fade transition
 			var tween = create_tween().set_parallel()
-			tween.tween_property(camera, "zoom", Vector2(20, 20), 2.0).set_trans(Tween.TRANS_LINEAR)
+			tween.tween_property(camera, "zoom", Vector2(150, 150), 2.0).set_trans(Tween.TRANS_LINEAR)
 			tween.tween_property(camera, "global_position", owl.global_position, 2.0).set_trans(Tween.TRANS_LINEAR)
 			
 			# Start the fade-in of the color rectangle after a delay
 			var color_tween = create_tween()
-			color_tween.tween_property(transition_rect, "visible", true, 0)
+			transition_rect.visible = true
+			transition_rect.modulate = Color(1, 1, 1, 0)
 			color_tween.tween_property(transition_rect, "modulate", Color(0.098, 0.09, 0.18, 1), 1.0).set_delay(1.0)
 			
 			# Wait for both tweens to finish
