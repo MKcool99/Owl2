@@ -1,12 +1,15 @@
 extends Area2D
 
+@export var owl_node: NodePath
+@export var camera_node: NodePath
+
 var is_winning = false
 
 func _on_body_entered(body):
 	if body.name == "Owl" and not is_winning:
 		is_winning = true
-		var owl = get_node("/root/level5/GraphPath/Owl")
-		var camera = get_node("/root/level5/Camera2D")
+		var owl = get_node(owl_node)
+		var camera = get_node(camera_node)
 		
 		if owl and camera:
 			# Zoom into the owl
