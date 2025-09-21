@@ -16,10 +16,14 @@ func _on_area_entered(area):
 		
 		if owl and camera and transition_rect:
 			owl.can_move = false
-			
-			# Tween 1: Move camera to owl's position
+
+			# Calculate offset for zoom target (slightly left and down)
+			var offset = Vector2(-40, 40) * owl.scale
+			var zoom_target = owl.global_position + offset
+
+			# Tween 1: Move camera to offset position
 			var move_tween = create_tween()
-			move_tween.tween_property(camera, "global_position", owl.global_position, 0.5).set_trans(Tween.TRANS_LINEAR)
+			move_tween.tween_property(camera, "global_position", zoom_target, 0.5).set_trans(Tween.TRANS_LINEAR)
 			await move_tween.finished
 
 			# Tween 2: Zoom and fade
