@@ -13,7 +13,7 @@ const OWL_SPEED = 150.0 # pixels per second
 var owl_is_moving = false
 var total_path_length = 0.0
 
-var graph_scale_y = GRAPH_SCALE
+var graph_scale_y = GRAPH_SCALE_X
 
 # Graph settings
 const GRAPH_WIDTH = 1152  # Screen width
