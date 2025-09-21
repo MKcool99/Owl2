@@ -10,3 +10,5 @@ res://level_4.tscn
 res://level_2.tscn
 res://levelselect/levelselect.tscn
 res://win_sequence.gd
+res://tree_area.gd
+res://tree_area4.gd
