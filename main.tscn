@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://dmnne71810kha"]
+[gd_scene load_steps=7 format=3 uid="uid://dmnne71810kha"]
 
-[ext_resource type="Script" uid="uid://b6h1ihcp2gco2" path="res://mainscript.gd" id="1_h2yge"]
-[ext_resource type="Texture2D" uid="uid://cwhdlgma22br" path="res://owlbg.jpg" id="2_1bvp3"]
-[ext_resource type="Texture2D" uid="uid://nso5sg82ejam" path="res://title.png" id="3_lquwl"]
-[ext_resource type="Texture2D" uid="uid://nm87fxqau25y" path="res://Sine.png" id="4_1bvp3"]
-[ext_resource type="Script" uid="uid://dkj0ukpv3a65w" path="res://owl.gd" id="5_lquwl"]
+[ext_resource type="Script" path="res://mainscript.gd" id="1_h2yge"]
+[ext_resource type="Texture2D" path="res://owlbg.jpg" id="2_1bvp3"]
+[ext_resource type="Texture2D" path="res://title.png" id="3_lquwl"]
+[ext_resource type="Texture2D" path="res://Sine.png" id="4_1bvp3"]
+[ext_resource type="Script" path="res://owl.gd" id="5_lquwl"]
+[ext_resource type="Script" path="res://resizable_panel.gd" id="6_abcde"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_h2yge")
@@ -26,71 +27,127 @@ script = ExtResource("5_lquwl")
 [node name="Sprite2D" type="Sprite2D" parent="GraphPath/Owl"]
 texture = ExtResource("4_1bvp3")
 
-[node name="EquationUI" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
+[node name="EquationUI" type="PanelContainer" parent="."]
 offset_left = 10.0
 offset_top = 10.0
 offset_right = 400.0
-offset_bottom = 80.0
+offset_bottom = 120.0
+script = ExtResource("6_abcde")
 
-[node name="Background" type="ColorRect" parent="EquationUI"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.1, 0.1, 0.1, 0.8)
+[node name="VBoxContainer" type="VBoxContainer" parent="EquationUI"]
+layout_mode = 2
 
-[node name="Label" type="Label" parent="EquationUI"]
-layout_mode = 1
-offset_left = 10.0
-offset_top = 8.0
-offset_right = 100.0
-offset_bottom = 28.0
+[node name="HBoxContainer" type="HBoxContainer" parent="EquationUI/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="EquationUI/VBoxContainer/HBoxContainer"]
+layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 14
 text = "Equation:"
 
-[node name="EquationInput" type="LineEdit" parent="EquationUI"]
-layout_mode = 1
-offset_left = 100.0
-offset_top = 5.0
-offset_right = 280.0
-offset_bottom = 30.0
+[node name="EquationInput" type="LineEdit" parent="EquationUI/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 placeholder_text = "e.g., x^2, sin(x), 2*x+1"
 
-[node name="PlotButton" type="Button" parent="EquationUI"]
-layout_mode = 1
-offset_left = 290.0
-offset_top = 5.0
-offset_right = 380.0
-offset_bottom = 30.0
+[node name="PlotButton" type="Button" parent="EquationUI/VBoxContainer"]
+layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 12
 text = "Plot Graph"
 
-[node name="ClearButton" type="Button" parent="EquationUI"]
-layout_mode = 1
-offset_left = 290.0
-offset_top = 35.0
-offset_right = 380.0
-offset_bottom = 60.0
+[node name="ClearButton" type="Button" parent="EquationUI/VBoxContainer"]
+layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 12
 text = "Clear All"
 
-[node name="HelpLabel" type="Label" parent="EquationUI"]
-layout_mode = 1
-offset_left = 10.0
-offset_top = 35.0
-offset_right = 280.0
-offset_bottom = 65.0
+[node name="HelpLabel" type="Label" parent="EquationUI/VBoxContainer"]
+layout_mode = 2
 theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
 theme_override_font_sizes/font_size = 10
 text = "Examples: x^2, sin(x), cos(x), x^3-2*x+1, abs(x), sqrt(x)"
 autowrap_mode = 2
+
+[node name="AIFunctionLabel" type="Label" parent="EquationUI/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 12
+text = "AI Owl Function: "
+
+[node name="GraphContainer" type="Node2D" parent="."]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_h2yge")
+
+[node name="Owlbg" type="Sprite2D" parent="."]
+position = Vector2(576, 323.5)
+scale = Vector2(0.604167, 0.673958)
+texture = ExtResource("2_1bvp3")
+
+[node name="Title" type="Sprite2D" parent="."]
+position = Vector2(577, 54)
+texture = ExtResource("3_lquwl")
+
+[node name="GraphPath" type="Path2D" parent="."]
+
+[node name="Owl" type="PathFollow2D" parent="GraphPath"]
+script = ExtResource("5_lquwl")
+
+[node name="Sprite2D" type="Sprite2D" parent="GraphPath/Owl"]
+position = Vector2(0, 0)
+texture = ExtResource("4_1bvp3")
+
+[node name="EquationUI" type="PanelContainer" parent="."]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 400.0
+offset_bottom = 120.0
+script = ExtResource("6_abcde")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="EquationUI"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="EquationUI/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="EquationUI/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 14
+text = "Equation:"
+
+[node name="EquationInput" type="LineEdit" parent="EquationUI/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+placeholder_text = "e.g., x^2, sin(x), 2*x+1"
+
+[node name="PlotButton" type="Button" parent="EquationUI/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 12
+text = "Plot Graph"
+
+[node name="ClearButton" type="Button" parent="EquationUI/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 12
+text = "Clear All"
+
+[node name="HelpLabel" type="Label" parent="EquationUI/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_font_sizes/font_size = 10
+text = "Examples: x^2, sin(x), cos(x), x^3-2*x+1, abs(x), sqrt(x)"
+autowrap_mode = 2
+
+[node name="AIFunctionLabel" type="Label" parent="EquationUI/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 12
+text = "AI Owl Function: "
 
 [node name="GraphContainer" type="Node2D" parent="."]

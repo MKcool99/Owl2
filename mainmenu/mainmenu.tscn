@@ -1,11 +1,12 @@
 [gd_scene load_steps=8 format=3 uid="uid://c3j3cprffso58"]
 
 [ext_resource type="Texture2D" uid="uid://cwhdlgma22br" path="res://owlbg.jpg" id="1_q1xyx"]
-[ext_resource type="Texture2D" uid="uid://cmq82ka2vwltw" path="res://levowl3.png" id="2_3u8qs"]
 [ext_resource type="Texture2D" uid="uid://nm87fxqau25y" path="res://Sine.png" id="3_y3h2u"]
 [ext_resource type="Script" uid="uid://bqydxdskpl00f" path="res://mainmenu/sine.gd" id="4_q1xyx"]
 [ext_resource type="Script" uid="uid://dnmacmclmpaaq" path="res://mainmenu/play_button.gd" id="4_wttv0"]
 [ext_resource type="Script" uid="uid://b1bjqo2gasqio" path="res://mainmenu/level_select_button.gd" id="5_3f1c3"]
+[ext_resource type="Texture2D" uid="uid://nso5sg82ejam" path="res://title.png" id="6_3f1c3"]
+[ext_resource type="Script" uid="uid://ceaiu3cox108f" path="res://mainmenu/title.gd" id="7_nxq8c"]
 
 [node name="level_4" type="Node2D"]
 
@@ -39,10 +40,11 @@ text = "Level Select"
 script = ExtResource("5_3f1c3")
 
 [node name="Title" type="Sprite2D" parent="."]
-position = Vector2(663.5, 49.500004)
-scale = Vector2(1.2809918, 1.3265306)
-texture = ExtResource("2_3u8qs")
+position = Vector2(571, 136)
+scale = Vector2(2.4338846, 2.520408)
+texture = ExtResource("6_3f1c3")
+script = ExtResource("7_nxq8c")
 
-[connection signal="pressed" from="PlayButton" to="PlayButton" method="_on_pressed"]
 [connection signal="pressed" from="PlayButton" to="Sine" method="_on_play_button_pressed"]
+[connection signal="pressed" from="PlayButton" to="PlayButton" method="_on_pressed"]
 [connection signal="pressed" from="LevelSelectButton" to="LevelSelectButton" method="_on_pressed"]
