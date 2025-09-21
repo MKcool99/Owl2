@@ -17,20 +17,20 @@ func _on_area_entered(area):
 		if owl and camera and transition_rect:
 			owl.can_move = false
 			
-			# Zoom and fade transition
-			var tween = create_tween().set_parallel()
-			tween.tween_property(camera, "zoom", Vector2(150, 150), 2.0).set_trans(Tween.TRANS_LINEAR)
-			tween.tween_property(camera, "global_position", owl.global_position, 2.0).set_trans(Tween.TRANS_LINEAR)
+			# Tween 1: Move camera to owl's position
+			var move_tween = create_tween()
+			move_tween.tween_property(camera, "global_position", owl.global_position, 0.5).set_trans(Tween.TRANS_LINEAR)
+			await move_tween.finished
+
+			# Tween 2: Zoom and fade
+			var zoom_fade_tween = create_tween().set_parallel()
+			zoom_fade_tween.tween_property(camera, "zoom", Vector2(150, 150), 2.0).set_trans(Tween.TRANS_LINEAR)
 			
-			# Start the fade-in of the color rectangle after a delay
-			var color_tween = create_tween()
 			transition_rect.visible = true
 			transition_rect.modulate = Color(1, 1, 1, 0)
-			color_tween.tween_property(transition_rect, "modulate", Color(0.098, 0.09, 0.18, 1), 1.0).set_delay(1.0)
-			
-			# Wait for both tweens to finish
-			await tween.finished
-			await color_tween.finished
+			zoom_fade_tween.tween_property(transition_rect, "modulate", Color(0.098, 0.09, 0.18, 1), 2.0).set_trans(Tween.TRANS_LINEAR)
+
+			await zoom_fade_tween.finished
 			
 			# Change to the win screen
 			get_tree().change_scene_to_file("res://win_screen.tscn")
