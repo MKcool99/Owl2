@@ -13,11 +13,13 @@ const OWL_SPEED = 150.0 # pixels per second
 var owl_is_moving = false
 var total_path_length = 0.0
 
+var graph_scale_y = GRAPH_SCALE_X
+
 # Graph settings
 const GRAPH_WIDTH = 1152  # Screen width
 const GRAPH_HEIGHT = 648  # Screen height
 
-const GRAPH_SCALE = 50    # Pixels per unit
+const GRAPH_SCALE_X = 50    # Pixels per unit
 const LINE_COLOR = Color.CYAN
 const LINE_WIDTH = 2.0
 const AXIS_COLOR = Color(0.5, 0.5, 0.5, 0.8)
@@ -35,6 +37,10 @@ var grid_lines: Array[Line2D] = []
 var current_path_points: PackedVector2Array = []
 var owl_progress = 0.0
 var owl_following = false
+
+var ai_owl_scene: PackedScene = preload("res://ai_owl.tscn")
+var ai_owl: Node2D = null
+@onready var ai_function_label: Label = $EquationUI/AIFunctionLabel
 
 func _ready():
 	# Connect button signals
@@ -54,6 +60,12 @@ func _ready():
 	# Hide the owl initially
 	owl.visible = false
 
+	# Add a new label for the AI function
+	ai_function_label = Label.new()
+	ai_function_label.position = Vector2(10, 65)
+	ai_function_label.text = "AI Owl Function: "
+	$EquationUI.add_child(ai_function_label)
+
 func _process(delta):
 	if owl_following and total_path_length > 0:
 		owl_progress += OWL_SPEED * delta
@@ -71,12 +83,14 @@ func _draw_coordinate_system():
 	axis_lines.clear()
 	grid_lines.clear()
 	
-	# Draw main axes (origin at bottom-left)
+	var origin_y = GRAPH_HEIGHT / 2.0
+	
+	# Draw main axes (origin at center-left)
 	var x_axis = Line2D.new()
 	x_axis.width = 1.5
 	x_axis.default_color = AXIS_COLOR
-	x_axis.add_point(Vector2(0, GRAPH_HEIGHT))
-	x_axis.add_point(Vector2(GRAPH_WIDTH, GRAPH_HEIGHT))
+	x_axis.add_point(Vector2(0, origin_y))
+	x_axis.add_point(Vector2(GRAPH_WIDTH, origin_y))
 	graph_container.add_child(x_axis)
 	axis_lines.append(x_axis)
 	
@@ -89,10 +103,10 @@ func _draw_coordinate_system():
 	axis_lines.append(y_axis)
 	
 	# Draw grid lines
-	var grid_spacing = GRAPH_SCALE  # One unit spacing
+	var grid_spacing_x = GRAPH_SCALE_X
 	
 	# Vertical grid lines
-	var x = grid_spacing
+	var x = grid_spacing_x
 	while x < GRAPH_WIDTH:
 		var line = Line2D.new()
 		line.width = 0.5
@@ -101,25 +115,38 @@ func _draw_coordinate_system():
 		line.add_point(Vector2(x, GRAPH_HEIGHT))
 		graph_container.add_child(line)
 		grid_lines.append(line)
-		x += grid_spacing
+		x += grid_spacing_x
 	
-	# Horizontal grid lines
-	var y = GRAPH_HEIGHT - grid_spacing
-	while y > 0:
+	# Horizontal grid lines (from center up and down)
+	var y_up = origin_y - graph_scale_y
+	while y_up > 0:
 		var line = Line2D.new()
 		line.width = 0.5
 		line.default_color = GRID_COLOR
-		line.add_point(Vector2(0, y))
-		line.add_point(Vector2(GRAPH_WIDTH, y))
+		line.add_point(Vector2(0, y_up))
+		line.add_point(Vector2(GRAPH_WIDTH, y_up))
 		graph_container.add_child(line)
 		grid_lines.append(line)
-		y -= grid_spacing
+		y_up -= graph_scale_y
+
+	var y_down = origin_y + graph_scale_y
+	while y_down < GRAPH_HEIGHT:
+		var line = Line2D.new()
+		line.width = 0.5
+		line.default_color = GRID_COLOR
+		line.add_point(Vector2(0, y_down))
+		line.add_point(Vector2(GRAPH_WIDTH, y_down))
+		graph_container.add_child(line)
+		grid_lines.append(line)
+		y_down += graph_scale_y
 
 func _on_plot_button_pressed():
 	_plot_equation()
 
 func _on_clear_button_pressed():
+	graph_scale_y = GRAPH_SCALE_X
 	_clear_graphs()
+	_draw_coordinate_system()
 
 func _on_equation_submitted(text: String):
 	_plot_equation()
@@ -137,15 +164,17 @@ func _clear_graphs():
 	owl_following = false
 	owl_progress = 0.0
 	total_path_length = 0.0
-	
-	# Redraw coordinate system
-	_draw_coordinate_system()
+
 
 func _plot_equation():
-	_clear_graphs() # Clear previous graphs
 	var equation = equation_input.text.strip_edges()
 	if equation.is_empty():
 		return
+
+	graph_scale_y = GRAPH_SCALE_X # Reset to default scale
+
+	_clear_graphs() # Clear previous graphs
+	_draw_coordinate_system() # Redraw with new scale
 	
 	# Create new Line2D for this graph
 	var line = Line2D.new()
@@ -159,7 +188,7 @@ func _plot_equation():
 	# Generate points for the graph
 	var points: PackedVector2Array = []
 	var x_min = 0
-	var x_max = GRAPH_WIDTH / GRAPH_SCALE
+	var x_max = GRAPH_WIDTH / GRAPH_SCALE_X
 	var step = (x_max - x_min) / 1000.0  # 1000 points for smooth curve
 	
 	var previous_y = NAN
@@ -170,9 +199,9 @@ func _plot_equation():
 		var y = _evaluate_equation(equation, x)
 		
 		if not is_nan(y) and not is_inf(y):
-			# Convert mathematical coordinates to screen coordinates (origin at bottom-left)
-			var screen_x = x * GRAPH_SCALE
-			var screen_y = GRAPH_HEIGHT - y * GRAPH_SCALE
+			# Convert mathematical coordinates to screen coordinates (origin at center-left)
+			var screen_x = x * GRAPH_SCALE_X
+			var screen_y = (GRAPH_HEIGHT / 2.0) - y * graph_scale_y
 			
 			# Check for discontinuities (large jumps in y values)
 			if not is_nan(previous_y) and abs(y - previous_y) > 10:
@@ -280,3 +309,31 @@ func _replace_math_functions(expr: String) -> String:
 	expr = expr.replace("**0.5", "**0.5")  # Square root as power
 	
 	return expr
+
+func _unhandled_input(event):
+	if event is InputEventKey and event.pressed and event.keycode == KEY_BACKSPACE:
+		_spawn_ai_owl()
+
+func _spawn_ai_owl():
+	if ai_owl and is_instance_valid(ai_owl):
+		 ai_owl.queue_free()
+
+	ai_owl = ai_owl_scene.instantiate()
+	add_child(ai_owl)
+
+	var start_y = randf_range(100, GRAPH_HEIGHT - 100)
+	ai_owl.start_moving(Vector2(0, start_y), Vector2(GRAPH_WIDTH, GRAPH_HEIGHT))
+
+	ai_owl.collided_with_player.connect(_on_ai_owl_collision)
+	ai_owl.function_changed.connect(_on_ai_owl_function_changed)
+
+	# Update the function label
+	ai_function_label.text = "AI Owl Function: " + ai_owl.get_current_function()
+
+func _on_ai_owl_function_changed(new_function):
+	ai_function_label.text = "AI Owl Function: " + str(new_function)
+
+func _on_ai_owl_collision():
+	# Handle game over or other logic
+	print("Player owl was caught!")
+	get_tree().reload_current_scene()
