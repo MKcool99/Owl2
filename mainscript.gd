@@ -316,7 +316,7 @@ func _unhandled_input(event):
 
 func _spawn_ai_owl():
 	if ai_owl and is_instance_valid(ai_owl):
-		 ai_owl.queue_free()
+		ai_owl.queue_free()
 
 	ai_owl = ai_owl_scene.instantiate()
 	add_child(ai_owl)

@@ -3,3 +3,8 @@ res://mainmenu/mainmenu.tscn
 res://mainmenu/title.gd
 res://mainmenu/sine.gd
 res://mainmenu/play_button.gd
+res://main.tscn
+res://ai_owl.tscn
+res://mainmenu/level_select_button.gd
+res://levelselect/levelselect.tscn
+res://levelselect/thumbnailbutton.gd
