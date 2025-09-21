@@ -23,7 +23,7 @@ func _gui_input(event):
 		if dragging:
 			var mouse_delta = get_global_mouse_position() - drag_start_pos
 			var new_size = original_size + mouse_delta * resize_direction
-			size = new_size.max(minimum_size)
+			size = new_size.max(custom_minimum_size)
 		elif is_on_border(mouse_pos):
 			var direction = get_resize_direction(mouse_pos)
 			if abs(direction.x) > 0 and abs(direction.y) > 0:
