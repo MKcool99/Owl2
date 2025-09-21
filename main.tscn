@@ -79,3 +79,76 @@ theme_override_font_sizes/font_size = 12
 text = "AI Owl Function: "
 
 [node name="GraphContainer" type="Node2D" parent="."]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_h2yge")
+
+[node name="Owlbg" type="Sprite2D" parent="."]
+position = Vector2(576, 323.5)
+scale = Vector2(0.604167, 0.673958)
+texture = ExtResource("2_1bvp3")
+
+[node name="Title" type="Sprite2D" parent="."]
+position = Vector2(577, 54)
+texture = ExtResource("3_lquwl")
+
+[node name="GraphPath" type="Path2D" parent="."]
+
+[node name="Owl" type="PathFollow2D" parent="GraphPath"]
+script = ExtResource("5_lquwl")
+
+[node name="Sprite2D" type="Sprite2D" parent="GraphPath/Owl"]
+position = Vector2(0, 0)
+texture = ExtResource("4_1bvp3")
+
+[node name="EquationUI" type="PanelContainer" parent="."]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 400.0
+offset_bottom = 120.0
+script = ExtResource("6_abcde")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="EquationUI"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="EquationUI/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="EquationUI/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 14
+text = "Equation:"
+
+[node name="EquationInput" type="LineEdit" parent="EquationUI/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+placeholder_text = "e.g., x^2, sin(x), 2*x+1"
+
+[node name="PlotButton" type="Button" parent="EquationUI/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 12
+text = "Plot Graph"
+
+[node name="ClearButton" type="Button" parent="EquationUI/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 12
+text = "Clear All"
+
+[node name="HelpLabel" type="Label" parent="EquationUI/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_font_sizes/font_size = 10
+text = "Examples: x^2, sin(x), cos(x), x^3-2*x+1, abs(x), sqrt(x)"
+autowrap_mode = 2
+
+[node name="AIFunctionLabel" type="Label" parent="EquationUI/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 12
+text = "AI Owl Function: "
+
+[node name="GraphContainer" type="Node2D" parent="."]
