@@ -73,12 +73,14 @@ func _draw_coordinate_system():
 	axis_lines.clear()
 	grid_lines.clear()
 	
-	# Draw main axes (origin at bottom-left)
+	var origin_y = GRAPH_HEIGHT / 2.0
+	
+	# Draw main axes (origin at center-left)
 	var x_axis = Line2D.new()
 	x_axis.width = 1.5
 	x_axis.default_color = AXIS_COLOR
-	x_axis.add_point(Vector2(0, GRAPH_HEIGHT))
-	x_axis.add_point(Vector2(GRAPH_WIDTH, GRAPH_HEIGHT))
+	x_axis.add_point(Vector2(0, origin_y))
+	x_axis.add_point(Vector2(GRAPH_WIDTH, origin_y))
 	graph_container.add_child(x_axis)
 	axis_lines.append(x_axis)
 	
@@ -105,17 +107,28 @@ func _draw_coordinate_system():
 		grid_lines.append(line)
 		x += grid_spacing_x
 	
-	# Horizontal grid lines
-	var y = GRAPH_HEIGHT - graph_scale_y
-	while y > 0:
+	# Horizontal grid lines (from center up and down)
+	var y_up = origin_y - graph_scale_y
+	while y_up > 0:
 		var line = Line2D.new()
 		line.width = 0.5
 		line.default_color = GRID_COLOR
-		line.add_point(Vector2(0, y))
-		line.add_point(Vector2(GRAPH_WIDTH, y))
+		line.add_point(Vector2(0, y_up))
+		line.add_point(Vector2(GRAPH_WIDTH, y_up))
 		graph_container.add_child(line)
 		grid_lines.append(line)
-		y -= graph_scale_y
+		y_up -= graph_scale_y
+
+	var y_down = origin_y + graph_scale_y
+	while y_down < GRAPH_HEIGHT:
+		var line = Line2D.new()
+		line.width = 0.5
+		line.default_color = GRID_COLOR
+		line.add_point(Vector2(0, y_down))
+		line.add_point(Vector2(GRAPH_WIDTH, y_down))
+		graph_container.add_child(line)
+		grid_lines.append(line)
+		y_down += graph_scale_y
 
 func _on_plot_button_pressed():
 	_plot_equation()
@@ -148,20 +161,20 @@ func _plot_equation():
 	if equation.is_empty():
 		return
 
-	# Pre-calculate to find max_y for autoscaling
-	var max_y = 0.0
+	# Pre-calculate to find max absolute y for autoscaling
+	var max_abs_y = 0.0
 	var x_min_pre = 0
 	var x_max_pre = GRAPH_WIDTH / GRAPH_SCALE_X
 	var step_pre = (x_max_pre - x_min_pre) / 1000.0
 	for i in range(1001):
 		var x = x_min_pre + i * step_pre
 		var y = _evaluate_equation(equation, x)
-		if not is_nan(y) and not is_inf(y) and y > max_y:
-			max_y = y
+		if not is_nan(y) and not is_inf(y) and abs(y) > max_abs_y:
+			max_abs_y = abs(y)
 	
 	# Adjust y-scale to fit the graph, with a margin
-	if max_y > 0:
-		graph_scale_y = (GRAPH_HEIGHT * 0.9) / max_y
+	if max_abs_y > 0:
+		graph_scale_y = (GRAPH_HEIGHT / 2.0 * 0.9) / max_abs_y
 	else:
 		graph_scale_y = GRAPH_SCALE_X # Default scale
 
@@ -191,9 +204,9 @@ func _plot_equation():
 		var y = _evaluate_equation(equation, x)
 		
 		if not is_nan(y) and not is_inf(y):
-			# Convert mathematical coordinates to screen coordinates (origin at bottom-left)
+			# Convert mathematical coordinates to screen coordinates (origin at center-left)
 			var screen_x = x * GRAPH_SCALE_X
-			var screen_y = GRAPH_HEIGHT - y * graph_scale_y
+			var screen_y = (GRAPH_HEIGHT / 2.0) - y * graph_scale_y
 			
 			# Check for discontinuities (large jumps in y values)
 			if not is_nan(previous_y) and abs(y - previous_y) > 10:
