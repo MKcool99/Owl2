@@ -121,7 +121,9 @@ func _on_plot_button_pressed():
 	_plot_equation()
 
 func _on_clear_button_pressed():
+	graph_scale_y = GRAPH_SCALE_X
 	_clear_graphs()
+	_draw_coordinate_system()
 
 func _on_equation_submitted(text: String):
 	_plot_equation()
@@ -139,9 +141,7 @@ func _clear_graphs():
 	owl_following = false
 	owl_progress = 0.0
 	total_path_length = 0.0
-	
-	# Redraw coordinate system
-	_draw_coordinate_system()
+
 
 func _plot_equation():
 	var equation = equation_input.text.strip_edges()
@@ -163,9 +163,10 @@ func _plot_equation():
 	if max_y > 0:
 		graph_scale_y = (GRAPH_HEIGHT * 0.9) / max_y
 	else:
-		graph_scale_y = 50 # Default scale
+		graph_scale_y = GRAPH_SCALE_X # Default scale
 
 	_clear_graphs() # Clear previous graphs
+	_draw_coordinate_system() # Redraw with new scale
 	
 	# Create new Line2D for this graph
 	var line = Line2D.new()
