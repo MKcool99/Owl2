@@ -43,5 +43,5 @@ scale = Vector2(2.5, 2.5)
 texture = ExtResource("1_2hud6")
 script = ExtResource("2_87egg")
 
-[connection signal="pressed" from="PlayButton" to="PlayButton" method="_on_pressed"]
 [connection signal="pressed" from="PlayButton" to="Sine" method="_on_play_button_pressed"]
+[connection signal="pressed" from="PlayButton" to="PlayButton" method="_on_pressed"]

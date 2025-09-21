@@ -1,0 +1,147 @@
+[gd_scene load_steps=14 format=3 uid="uid://by6n2w523rm47"]
+
+[ext_resource type="Script" uid="uid://dv666m0812i61" path="res://level_1.gd" id="1_15wb7"]
+[ext_resource type="Texture2D" uid="uid://cwhdlgma22br" path="res://owlbg.jpg" id="2_eoq84"]
+[ext_resource type="Texture2D" uid="uid://7x2sveedmigt" path="res://levowl2.png" id="3_15wb7"]
+[ext_resource type="Script" uid="uid://dkj0ukpv3a65w" path="res://owl.gd" id="4_xbcdb"]
+[ext_resource type="Texture2D" uid="uid://nm87fxqau25y" path="res://Sine.png" id="5_s77qv"]
+[ext_resource type="Script" uid="uid://bg4sq0kup3bxl" path="res://area_2d.gd" id="6_5hnhx"]
+[ext_resource type="Texture2D" uid="uid://dpd4jf7how6tj" path="res://finaltree.png" id="7_78pok"]
+[ext_resource type="Script" uid="uid://dk0vwlbso6w47" path="res://tree_area2.gd" id="8_15wb7"]
+[ext_resource type="Texture2D" uid="uid://dh3pq86oa3fwe" path="res://realcolumn.png" id="9_jcnlr"]
+[ext_resource type="Script" uid="uid://dmdgn2ksty1pf" path="res://pillar_area.gd" id="10_5kfcu"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i558w"]
+radius = 16.56
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cuxq2"]
+radius = 782.66
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wvr33"]
+size = Vector2(138.263, 1012.3186)
+
+[node name="level2" type="Node2D"]
+script = ExtResource("1_15wb7")
+
+[node name="Owlbg" type="Sprite2D" parent="."]
+position = Vector2(576, 323.5)
+scale = Vector2(0.604167, 0.673958)
+texture = ExtResource("2_eoq84")
+
+[node name="Title" type="Sprite2D" parent="."]
+position = Vector2(652.5, 45)
+scale = Vector2(1.30854, 1.4693879)
+texture = ExtResource("3_15wb7")
+
+[node name="GraphPath" type="Path2D" parent="."]
+
+[node name="Owl" type="PathFollow2D" parent="GraphPath"]
+script = ExtResource("4_xbcdb")
+
+[node name="Sprite2D" type="Sprite2D" parent="GraphPath/Owl"]
+texture = ExtResource("5_s77qv")
+
+[node name="OwlArea" type="Area2D" parent="GraphPath/Owl/Sprite2D"]
+script = ExtResource("6_5hnhx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GraphPath/Owl/Sprite2D/OwlArea"]
+shape = SubResource("CircleShape2D_i558w")
+
+[node name="EquationUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 400.0
+offset_bottom = 80.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Background" type="ColorRect" parent="EquationUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.1, 0.1, 0.1, 0.8)
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="EquationUI"]
+layout_mode = 1
+offset_left = 10.0
+offset_top = 8.0
+offset_right = 100.0
+offset_bottom = 28.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 14
+text = "Equation:"
+metadata/_edit_use_anchors_ = true
+
+[node name="EquationInput" type="LineEdit" parent="EquationUI"]
+layout_mode = 1
+offset_left = 100.0
+offset_top = 5.0
+offset_right = 280.0
+offset_bottom = 30.0
+placeholder_text = "e.g., x^2, sin(x), 2*x+1"
+metadata/_edit_use_anchors_ = true
+
+[node name="PlotButton" type="Button" parent="EquationUI"]
+layout_mode = 1
+offset_left = 290.0
+offset_top = 5.0
+offset_right = 380.0
+offset_bottom = 30.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 12
+text = "Plot Graph"
+metadata/_edit_use_anchors_ = true
+
+[node name="ClearButton" type="Button" parent="EquationUI"]
+layout_mode = 1
+offset_left = 290.0
+offset_top = 35.0
+offset_right = 380.0
+offset_bottom = 60.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 12
+text = "Clear All"
+metadata/_edit_use_anchors_ = true
+
+[node name="HelpLabel" type="Label" parent="EquationUI"]
+layout_mode = 1
+offset_left = 10.0
+offset_top = 44.0
+offset_right = 280.0
+offset_bottom = 74.0
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+theme_override_font_sizes/font_size = 10
+text = "Examples: x^2, sin(x), cos(x), x^3-2*x+1, abs(x), sqrt(x)"
+autowrap_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="GraphContainer" type="Node2D" parent="."]
+
+[node name="Tree" type="Sprite2D" parent="."]
+position = Vector2(980.99994, 424)
+scale = Vector2(0.19792417, 0.17124997)
+texture = ExtResource("7_78pok")
+
+[node name="TreeArea" type="Area2D" parent="Tree"]
+script = ExtResource("8_15wb7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tree/TreeArea"]
+position = Vector2(8.069676, -70.7483)
+shape = SubResource("CircleShape2D_cuxq2")
+
+[node name="Pillar" type="Sprite2D" parent="."]
+position = Vector2(559, 432)
+scale = Vector2(0.43438798, 0.4141908)
+texture = ExtResource("9_jcnlr")
+
+[node name="PillarArea" type="Area2D" parent="Pillar"]
+script = ExtResource("10_5kfcu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pillar/PillarArea"]
+scale = Vector2(1, 1.0000001)
+shape = SubResource("RectangleShape2D_wvr33")
