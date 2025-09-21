@@ -1,5 +1,12 @@
-res://level_2.tscn
 res://level_1.tscn
-res://level_4.tscn
-res://level_3.tscn
 res://level_5.tscn
+res://camera_2d.gd
+res://tree_area3.gd
+res://tree_area2.gd
+res://mainmenu/mainmenu.tscn
+res://mainmenu/sine.gd
+res://level_3.tscn
+res://level_4.tscn
+res://level_2.tscn
+res://levelselect/levelselect.tscn
+res://win_sequence.gd
