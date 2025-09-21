@@ -5,9 +5,9 @@
 [ext_resource type="Texture2D" uid="uid://crjuyqih8sjiv" path="res://levelselect/thumbnail1.webp" id="3_alxek"]
 [ext_resource type="Texture2D" uid="uid://cxwwyay72j1hd" path="res://levelselect/thumbnail3.webp" id="4_4o8rm"]
 [ext_resource type="Texture2D" uid="uid://clbgpfeqgwyn5" path="res://levelselect/thumbnail2.webp" id="4_67sp7"]
-[ext_resource type="Script" uid="uid://lxasbcirt5qu" path="res://levelselect/thumbnailbutton.gd" id="4_hngs5"]
 [ext_resource type="Texture2D" uid="uid://pw72upqvtwi5" path="res://levelselect/thumbnail4.webp" id="5_67sp7"]
 [ext_resource type="Texture2D" uid="uid://1qyhyh6a4ip4" path="res://levelselect/thumbnail5.webp" id="7_hngs5"]
+[ext_resource type="FontFile" uid="uid://4s63otf822w1" path="res://SuperPixel-m2L8j.ttf" id="8_4o8rm"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -23,7 +23,6 @@ offset_right = 470.0
 offset_bottom = 632.0
 scale = Vector2(0.5, 0.5)
 texture_normal = ExtResource("3_alxek")
-script = ExtResource("4_hngs5")
 
 [node name="thumbnailbutton2" parent="." instance=ExtResource("2_jxds4")]
 offset_left = 290.0
@@ -32,7 +31,6 @@ offset_right = 650.0
 offset_bottom = 632.0
 scale = Vector2(0.5, 0.5)
 texture_normal = ExtResource("4_67sp7")
-script = ExtResource("4_hngs5")
 
 [node name="thumbnailbutton3" parent="." instance=ExtResource("2_jxds4")]
 offset_left = 470.0
@@ -41,7 +39,6 @@ offset_right = 830.0
 offset_bottom = 632.0
 scale = Vector2(0.5, 0.5)
 texture_normal = ExtResource("4_4o8rm")
-script = ExtResource("4_hngs5")
 
 [node name="thumbnailbutton4" parent="." instance=ExtResource("2_jxds4")]
 offset_left = 650.0
@@ -50,7 +47,6 @@ offset_right = 1010.0
 offset_bottom = 632.0
 scale = Vector2(0.5, 0.5)
 texture_normal = ExtResource("5_67sp7")
-script = ExtResource("4_hngs5")
 
 [node name="thumbnailbutton5" parent="." instance=ExtResource("2_jxds4")]
 offset_left = 830.0
@@ -59,13 +55,13 @@ offset_right = 1190.0
 offset_bottom = 632.0
 scale = Vector2(0.5, 0.5)
 texture_normal = ExtResource("7_hngs5")
-script = ExtResource("4_hngs5")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
-offset_left = 289.0
-offset_top = 440.0
-offset_right = 1548.0
-offset_bottom = 598.0
+offset_left = 135.0
+offset_top = 402.0
+offset_right = 1394.0
+offset_bottom = 560.0
+theme_override_fonts/normal_font = ExtResource("8_4o8rm")
 theme_override_font_sizes/normal_font_size = 100
 text = "Level Select"
 
