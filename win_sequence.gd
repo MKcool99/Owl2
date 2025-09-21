@@ -18,7 +18,7 @@ func _on_area_entered(area):
 			owl.can_move = false
 
 			# Calculate offset for zoom target (slightly left and down)
-			var offset = Vector2(-40, 40) * owl.scale
+			var offset = Vector2(-10, 7) * owl.scale
 			var zoom_target = owl.global_position + offset
 
 			# Tween 1: Move camera to offset position
@@ -27,14 +27,17 @@ func _on_area_entered(area):
 			await move_tween.finished
 
 			# Tween 2: Zoom and fade
-			var zoom_fade_tween = create_tween().set_parallel()
-			zoom_fade_tween.tween_property(camera, "zoom", Vector2(150, 150), 2.0).set_trans(Tween.TRANS_LINEAR)
-			
+			var fade_tween = create_tween()
 			transition_rect.visible = true
 			transition_rect.modulate = Color(1, 1, 1, 0)
-			zoom_fade_tween.tween_property(transition_rect, "modulate", Color(0.098, 0.09, 0.18, 1), 2.0).set_trans(Tween.TRANS_LINEAR)
+			fade_tween.tween_property(transition_rect, "modulate", Color(0.098, 0.09, 0.18, 1), 6.0).set_trans(Tween.TRANS_LINEAR)
 
-			await zoom_fade_tween.finished
+			var zoom_tween = create_tween()
+			zoom_tween.tween_property(camera, "zoom", Vector2(30, 30), 2.0).set_trans(Tween.TRANS_LINEAR)
+			zoom_tween.tween_property(camera, "zoom", Vector2(500, 500), 4.0).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
+
+			await fade_tween.finished
+			await zoom_tween.finished
 			
 			# Change to the win screen
 			get_tree().change_scene_to_file("res://win_screen.tscn")
