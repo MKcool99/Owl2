@@ -61,6 +61,7 @@ texture = ExtResource("7_o1mlc")
 script = ExtResource("8_jda3s")
 owl_node = NodePath("../../GraphPath/Owl")
 camera_node = NodePath("../../Camera2D")
+transition_rect_node = NodePath("../../TransitionRect")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Tree/TreeArea"]
 position = Vector2(8.069676, -70.7483)
@@ -177,5 +178,16 @@ shape = SubResource("CircleShape2D_q0h4m")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(576, 324)
+
+[node name="TransitionRect" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
 
 [connection signal="area_entered" from="Tree/TreeArea" to="Tree/TreeArea" method="_on_area_entered"]
