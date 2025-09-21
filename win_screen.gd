@@ -9,4 +9,4 @@ func _ready():
 	timer.start()
 
 func _on_timer_timeout():
-	get_tree().change_scene_to_file("res://main.tscn")
+	get_tree().change_scene_to_file("res://mainmenu/main_menu.tscn")
