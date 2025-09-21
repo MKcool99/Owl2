@@ -59,8 +59,8 @@ texture = ExtResource("7_o1mlc")
 
 [node name="TreeArea" type="Area2D" parent="Tree"]
 script = ExtResource("8_jda3s")
-owl_node = NodePath("../../../GraphPath/Owl")
-camera_node = NodePath("../../../Camera2D")
+owl_node = NodePath("../../GraphPath/Owl")
+camera_node = NodePath("../../Camera2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Tree/TreeArea"]
 position = Vector2(8.069676, -70.7483)
