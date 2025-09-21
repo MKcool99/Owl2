@@ -1,18 +1,17 @@
 [gd_scene load_steps=8 format=3 uid="uid://c3j3cprffso58"]
 
-[ext_resource type="Texture2D" uid="uid://nso5sg82ejam" path="res://title.png" id="1_2hud6"]
 [ext_resource type="Texture2D" uid="uid://cwhdlgma22br" path="res://owlbg.jpg" id="1_q1xyx"]
-[ext_resource type="Script" uid="uid://ceaiu3cox108f" path="res://mainmenu/title.gd" id="2_87egg"]
+[ext_resource type="Texture2D" uid="uid://cmq82ka2vwltw" path="res://levowl3.png" id="2_3u8qs"]
 [ext_resource type="Texture2D" uid="uid://nm87fxqau25y" path="res://Sine.png" id="3_y3h2u"]
 [ext_resource type="Script" uid="uid://bqydxdskpl00f" path="res://mainmenu/sine.gd" id="4_q1xyx"]
 [ext_resource type="Script" uid="uid://dnmacmclmpaaq" path="res://mainmenu/play_button.gd" id="4_wttv0"]
 [ext_resource type="Script" uid="uid://b1bjqo2gasqio" path="res://mainmenu/level_select_button.gd" id="5_3f1c3"]
 
-[node name="MainMenu" type="Node2D"]
+[node name="level_4" type="Node2D"]
 
 [node name="Owlbg" type="Sprite2D" parent="."]
-position = Vector2(458.49997, -808.25)
-scale = Vector2(1.4692708, 3.0411458)
+position = Vector2(576, 323.5)
+scale = Vector2(0.604167, 0.673958)
 texture = ExtResource("1_q1xyx")
 
 [node name="Sine" type="Sprite2D" parent="."]
@@ -40,10 +39,23 @@ text = "Level Select"
 script = ExtResource("5_3f1c3")
 
 [node name="Title" type="Sprite2D" parent="."]
-position = Vector2(580, 135)
-scale = Vector2(2.5, 2.5)
-texture = ExtResource("1_2hud6")
-script = ExtResource("2_87egg")
+position = Vector2(663.5, 49.500004)
+scale = Vector2(1.2809918, 1.3265306)
+texture = ExtResource("2_3u8qs")
+
+[node name="GraphPath" type="Path2D" parent="."]
+
+[node name="Owl" type="PathFollow2D" parent="GraphPath"]
+script = ExtResource("4_ekw2e")
+
+[node name="Sprite2D" type="Sprite2D" parent="GraphPath/Owl"]
+texture = ExtResource("3_y3h2u")
+
+[node name="OwlArea" type="Area2D" parent="GraphPath/Owl/Sprite2D"]
+script = ExtResource("6_c1d8v")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GraphPath/Owl/Sprite2D/OwlArea"]
+shape = SubResource("CircleShape2D_2vyst")
 
 [connection signal="pressed" from="PlayButton" to="PlayButton" method="_on_pressed"]
 [connection signal="pressed" from="PlayButton" to="Sine" method="_on_play_button_pressed"]
