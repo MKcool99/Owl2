@@ -25,7 +25,7 @@ color = Color(1, 1, 1, 1)
 hue_variation_min = -1.0
 hue_variation_max = 1.0
 
-[node name="WinScreen" type="Node2D"]
+[node name="WinScreen" type="Control"]
 script = ExtResource("2_abcde")
 
 [node name="OwlgebraWinScreen" type="Sprite2D" parent="."]
