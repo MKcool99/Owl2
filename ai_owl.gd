@@ -9,6 +9,7 @@ var path_points: PackedVector2Array = []
 var current_point_index = 0
 
 signal collided_with_player
+signal function_changed(new_function)
 
 func _ready():
 	randomize()
@@ -20,6 +21,7 @@ func _process(delta):
 
 func start_moving(start_pos, screen_size):
 	generate_random_function()
+	emit_signal("function_changed", current_function)
 	generate_path(start_pos, screen_size)
 	self.position = path_points[0]
 	current_point_index = 0

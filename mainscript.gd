@@ -316,18 +316,22 @@ func _unhandled_input(event):
 
 func _spawn_ai_owl():
 	if ai_owl and is_instance_valid(ai_owl):
-		ai_owl.queue_free()
+		 ai_owl.queue_free()
 
 	ai_owl = ai_owl_scene.instantiate()
 	add_child(ai_owl)
-	
+
 	var start_y = randf_range(100, GRAPH_HEIGHT - 100)
 	ai_owl.start_moving(Vector2(0, start_y), Vector2(GRAPH_WIDTH, GRAPH_HEIGHT))
-	
+
 	ai_owl.collided_with_player.connect(_on_ai_owl_collision)
-	
+	ai_owl.function_changed.connect(_on_ai_owl_function_changed)
+
 	# Update the function label
 	ai_function_label.text = "AI Owl Function: " + ai_owl.get_current_function()
+
+func _on_ai_owl_function_changed(new_function):
+	ai_function_label.text = "AI Owl Function: " + str(new_function)
 
 func _on_ai_owl_collision():
 	# Handle game over or other logic
