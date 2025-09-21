@@ -161,22 +161,7 @@ func _plot_equation():
 	if equation.is_empty():
 		return
 
-	# Pre-calculate to find max absolute y for autoscaling
-	var max_abs_y = 0.0
-	var x_min_pre = 0
-	var x_max_pre = GRAPH_WIDTH / GRAPH_SCALE_X
-	var step_pre = (x_max_pre - x_min_pre) / 1000.0
-	for i in range(1001):
-		var x = x_min_pre + i * step_pre
-		var y = _evaluate_equation(equation, x)
-		if not is_nan(y) and not is_inf(y) and abs(y) > max_abs_y:
-			max_abs_y = abs(y)
-	
-	# Adjust y-scale to fit the graph, with a margin
-	if max_abs_y > 0:
-		graph_scale_y = (GRAPH_HEIGHT / 2.0 * 0.9) / max_abs_y
-	else:
-		graph_scale_y = GRAPH_SCALE_X # Default scale
+	graph_scale_y = GRAPH_SCALE_X # Reset to default scale
 
 	_clear_graphs() # Clear previous graphs
 	_draw_coordinate_system() # Redraw with new scale
