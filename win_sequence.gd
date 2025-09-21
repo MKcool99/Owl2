@@ -13,8 +13,9 @@ func _on_area_entered(area):
 		
 		if owl and camera:
 			# Zoom into the owl
-			var tween = create_tween()
+			var tween = create_tween().set_parallel()
 			tween.tween_property(camera, "zoom", Vector2(4, 4), 2.0).set_trans(Tween.TRANS_LINEAR)
+			tween.tween_property(camera, "global_position", owl.global_position, 2.0).set_trans(Tween.TRANS_LINEAR)
 			
 			# Wait for the zoom to finish
 			await tween.finished
