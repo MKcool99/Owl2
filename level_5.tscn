@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://nm87fxqau25y" path="res://Sine.png" id="5_uws32"]
 [ext_resource type="Script" uid="uid://bg4sq0kup3bxl" path="res://area_2d.gd" id="6_vcgqq"]
 [ext_resource type="Texture2D" uid="uid://dpd4jf7how6tj" path="res://finaltree.png" id="7_o1mlc"]
-[ext_resource type="Script" uid="uid://chsgc62ibag0q" path="res://tree_area3.gd" id="8_jda3s"]
+[ext_resource type="Script" uid="uid://csuj6l4h333v7" path="res://win_sequence.gd" id="8_jda3s"]
 [ext_resource type="Texture2D" uid="uid://piv5e50tgums" path="res://spike.png" id="9_gsy6j"]
 [ext_resource type="Script" uid="uid://dmdgn2ksty1pf" path="res://pillar_area.gd" id="10_tkh5q"]
 
@@ -172,3 +172,5 @@ script = ExtResource("10_tkh5q")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Pillar3/PillarArea"]
 scale = Vector2(1, 1.0000001)
 shape = SubResource("CircleShape2D_q0h4m")
+
+[connection signal="body_entered" from="Tree/TreeArea" to="Tree/TreeArea" method="_on_body_entered"]
