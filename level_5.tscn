@@ -173,4 +173,7 @@ script = ExtResource("10_tkh5q")
 scale = Vector2(1, 1.0000001)
 shape = SubResource("CircleShape2D_q0h4m")
 
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(576, 324)
+
 [connection signal="body_entered" from="Tree/TreeArea" to="Tree/TreeArea" method="_on_body_entered"]

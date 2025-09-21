@@ -6,7 +6,7 @@ func _on_body_entered(body):
 	if body.name == "Owl" and not is_winning:
 		is_winning = true
 		var owl = get_node("/root/level5/GraphPath/Owl")
-		var camera = get_viewport().get_camera_2d()
+		var camera = get_node("/root/level5/Camera2D")
 		
 		if owl and camera:
 			# Zoom into the owl
