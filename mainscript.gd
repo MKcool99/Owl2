@@ -51,26 +51,10 @@ func _ready():
 	owl.visible = false
 
 func _process(delta):
-	if owl_following and current_path_points.size() > 1:
-		owl_progress += OWL_SPEED * delta
-		var current_length = 0.0
-		for i in range(1, current_path_points.size()):
-			var p1 = current_path_points[i-1]
-			var p2 = current_path_points[i]
-			var segment_length = p1.distance_to(p2)
-			
-			if current_length + segment_length >= owl_progress:
-				# Interpolate position on the current segment
-				var distance_into_segment = owl_progress - current_length
-				var t = distance_into_segment / segment_length
-				owl.position = p1.lerp(p2, t)
-				break
-			
-			current_length += segment_length
-		
-		if owl_progress >= total_path_length:
+	if owl_following:
+		owl.progress += OWL_SPEED * delta
+		if owl.progress >= graph_path.curve.get_baked_length():
 			owl_following = false
-			owl.position = current_path_points[current_path_points.size() - 1]
 
 
 func _draw_coordinate_system():
@@ -263,17 +247,11 @@ func _plot_equation():
 		graph_path.curve.clear_points()
 		for p in current_path_points:
 			graph_path.curve.add_point(p)
-		
-		# Calculate total path length
-		total_path_length = 0.0
-		for i in range(1, current_path_points.size()):
-			total_path_length += current_path_points[i-1].distance_to(current_path_points[i])
 			
 		# Start the owl
-		owl.position = current_path_points[0]
+		owl.progress = 0
 		owl.visible = true
 		owl_following = true
-		owl_progress = 0.0
 
 
 func _evaluate_equation(equation: String, x: float) -> float:
