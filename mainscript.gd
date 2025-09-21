@@ -1,9 +1,9 @@
 extends Node2D
 
 # References to UI elements
-@onready var equation_input: LineEdit = $EquationUI/EquationInput
-@onready var plot_button: Button = $EquationUI/PlotButton
-@onready var clear_button: Button = $EquationUI/ClearButton
+@onready var equation_input: LineEdit = $EquationUI/VBoxContainer/HBoxContainer/EquationInput
+@onready var plot_button: Button = $EquationUI/VBoxContainer/PlotButton
+@onready var clear_button: Button = $EquationUI/VBoxContainer/ClearButton
 @onready var graph_container: Node2D = $GraphContainer
 @onready var owl: PathFollow2D = $GraphPath/Owl
 @onready var graph_path: Path2D = $GraphPath
