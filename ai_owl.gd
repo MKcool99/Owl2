@@ -27,8 +27,28 @@ func start_moving(start_pos, screen_size):
 	current_point_index = 0
 
 func generate_random_function():
-	var functions = ["sin(x)", "cos(x)", "x^2 / 10", "5*sin(x/2)", "3*cos(x/3)"]
-	current_function = functions[randi() % functions.size()]
+	var terms = []
+	var num_terms = randi() % 2 + 1  # 1 or 2 terms
+
+	for i in range(num_terms):
+		var term_type = randi() % 3
+		var term = ""
+		match term_type:
+			0:  # sin
+				var amp = randf_range(1, 5)
+				var freq = randf_range(0.2, 2)
+				term = "%s * sin(%s * x)" % [amp, freq]
+			1:  # cos
+				var amp = randf_range(1, 5)
+				var freq = randf_range(0.2, 2)
+				term = "%s * cos(%s * x)" % [amp, freq]
+			2:  # polynomial
+				var coeff = randf_range(0.1, 0.5)
+				var power = randi() % 2 + 2  # x^2 or x^3
+				term = "%s * x^%s" % [coeff, power]
+		terms.append(term)
+	
+	current_function = " + ".join(terms)
 
 func generate_path(start_pos, screen_size):
 	path_points.clear()
