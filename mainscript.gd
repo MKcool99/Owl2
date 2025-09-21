@@ -38,6 +38,10 @@ var current_path_points: PackedVector2Array = []
 var owl_progress = 0.0
 var owl_following = false
 
+var ai_owl_scene: PackedScene = preload("res://ai_owl.tscn")
+var ai_owl: Node2D = null
+@onready var ai_function_label: Label = $EquationUI/AIFunctionLabel
+
 func _ready():
 	# Connect button signals
 	plot_button.pressed.connect(_on_plot_button_pressed)
@@ -55,6 +59,12 @@ func _ready():
 	
 	# Hide the owl initially
 	owl.visible = false
+
+	# Add a new label for the AI function
+	ai_function_label = Label.new()
+	ai_function_label.position = Vector2(10, 65)
+	ai_function_label.text = "AI Owl Function: "
+	$EquationUI.add_child(ai_function_label)
 
 func _process(delta):
 	if owl_following and total_path_length > 0:
@@ -299,3 +309,27 @@ func _replace_math_functions(expr: String) -> String:
 	expr = expr.replace("**0.5", "**0.5")  # Square root as power
 	
 	return expr
+
+func _unhandled_input(event):
+	if event is InputEventKey and event.pressed and event.keycode == KEY_BACKSPACE:
+		_spawn_ai_owl()
+
+func _spawn_ai_owl():
+	if ai_owl and is_instance_valid(ai_owl):
+		ai_owl.queue_free()
+
+	ai_owl = ai_owl_scene.instantiate()
+	add_child(ai_owl)
+	
+	var start_y = randf_range(100, GRAPH_HEIGHT - 100)
+	ai_owl.start_moving(Vector2(0, start_y), Vector2(GRAPH_WIDTH, GRAPH_HEIGHT))
+	
+	ai_owl.collided_with_player.connect(_on_ai_owl_collision)
+	
+	# Update the function label
+	ai_function_label.text = "AI Owl Function: " + ai_owl.get_current_function()
+
+func _on_ai_owl_collision():
+	# Handle game over or other logic
+	print("Player owl was caught!")
+	get_tree().reload_current_scene()
