@@ -5,8 +5,8 @@ extends Area2D
 
 var is_winning = false
 
-func _on_body_entered(body):
-	if body.get_parent().name == "Owl" and not is_winning:
+func _on_area_entered(area):
+	if area.is_in_group("player") and not is_winning:
 		is_winning = true
 		var owl = get_node(owl_node)
 		var camera = get_node(camera_node)

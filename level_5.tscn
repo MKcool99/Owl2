@@ -44,7 +44,7 @@ script = ExtResource("4_jiqp1")
 [node name="Sprite2D" type="Sprite2D" parent="GraphPath/Owl"]
 texture = ExtResource("5_uws32")
 
-[node name="OwlArea" type="Area2D" parent="GraphPath/Owl/Sprite2D"]
+[node name="OwlArea" type="Area2D" parent="GraphPath/Owl/Sprite2D" groups=["player"]]
 script = ExtResource("6_vcgqq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GraphPath/Owl/Sprite2D/OwlArea"]
@@ -178,4 +178,4 @@ shape = SubResource("CircleShape2D_q0h4m")
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(576, 324)
 
-[connection signal="body_entered" from="Tree/TreeArea" to="Tree/TreeArea" method="_on_body_entered"]
+[connection signal="area_entered" from="Tree/TreeArea" to="Tree/TreeArea" method="_on_area_entered"]
