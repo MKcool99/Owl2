@@ -13,11 +13,13 @@ const OWL_SPEED = 150.0 # pixels per second
 var owl_is_moving = false
 var total_path_length = 0.0
 
+var graph_scale_y = GRAPH_SCALE
+
 # Graph settings
 const GRAPH_WIDTH = 1152  # Screen width
 const GRAPH_HEIGHT = 648  # Screen height
 
-const GRAPH_SCALE = 50    # Pixels per unit
+const GRAPH_SCALE_X = 50    # Pixels per unit
 const LINE_COLOR = Color.CYAN
 const LINE_WIDTH = 2.0
 const AXIS_COLOR = Color(0.5, 0.5, 0.5, 0.8)
@@ -89,10 +91,10 @@ func _draw_coordinate_system():
 	axis_lines.append(y_axis)
 	
 	# Draw grid lines
-	var grid_spacing = GRAPH_SCALE  # One unit spacing
+	var grid_spacing_x = GRAPH_SCALE_X
 	
 	# Vertical grid lines
-	var x = grid_spacing
+	var x = grid_spacing_x
 	while x < GRAPH_WIDTH:
 		var line = Line2D.new()
 		line.width = 0.5
@@ -101,10 +103,10 @@ func _draw_coordinate_system():
 		line.add_point(Vector2(x, GRAPH_HEIGHT))
 		graph_container.add_child(line)
 		grid_lines.append(line)
-		x += grid_spacing
+		x += grid_spacing_x
 	
 	# Horizontal grid lines
-	var y = GRAPH_HEIGHT - grid_spacing
+	var y = GRAPH_HEIGHT - graph_scale_y
 	while y > 0:
 		var line = Line2D.new()
 		line.width = 0.5
@@ -113,7 +115,7 @@ func _draw_coordinate_system():
 		line.add_point(Vector2(GRAPH_WIDTH, y))
 		graph_container.add_child(line)
 		grid_lines.append(line)
-		y -= grid_spacing
+		y -= graph_scale_y
 
 func _on_plot_button_pressed():
 	_plot_equation()
@@ -142,10 +144,28 @@ func _clear_graphs():
 	_draw_coordinate_system()
 
 func _plot_equation():
-	_clear_graphs() # Clear previous graphs
 	var equation = equation_input.text.strip_edges()
 	if equation.is_empty():
 		return
+
+	# Pre-calculate to find max_y for autoscaling
+	var max_y = 0.0
+	var x_min_pre = 0
+	var x_max_pre = GRAPH_WIDTH / GRAPH_SCALE_X
+	var step_pre = (x_max_pre - x_min_pre) / 1000.0
+	for i in range(1001):
+		var x = x_min_pre + i * step_pre
+		var y = _evaluate_equation(equation, x)
+		if not is_nan(y) and not is_inf(y) and y > max_y:
+			max_y = y
+	
+	# Adjust y-scale to fit the graph, with a margin
+	if max_y > 0:
+		graph_scale_y = (GRAPH_HEIGHT * 0.9) / max_y
+	else:
+		graph_scale_y = 50 # Default scale
+
+	_clear_graphs() # Clear previous graphs
 	
 	# Create new Line2D for this graph
 	var line = Line2D.new()
@@ -159,7 +179,7 @@ func _plot_equation():
 	# Generate points for the graph
 	var points: PackedVector2Array = []
 	var x_min = 0
-	var x_max = GRAPH_WIDTH / GRAPH_SCALE
+	var x_max = GRAPH_WIDTH / GRAPH_SCALE_X
 	var step = (x_max - x_min) / 1000.0  # 1000 points for smooth curve
 	
 	var previous_y = NAN
@@ -171,8 +191,8 @@ func _plot_equation():
 		
 		if not is_nan(y) and not is_inf(y):
 			# Convert mathematical coordinates to screen coordinates (origin at bottom-left)
-			var screen_x = x * GRAPH_SCALE
-			var screen_y = GRAPH_HEIGHT - y * GRAPH_SCALE
+			var screen_x = x * GRAPH_SCALE_X
+			var screen_y = GRAPH_HEIGHT - y * graph_scale_y
 			
 			# Check for discontinuities (large jumps in y values)
 			if not is_nan(previous_y) and abs(y - previous_y) > 10:
