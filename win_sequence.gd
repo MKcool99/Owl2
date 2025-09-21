@@ -6,7 +6,7 @@ extends Area2D
 var is_winning = false
 
 func _on_body_entered(body):
-	if body.name == "Owl" and not is_winning:
+	if body.get_parent().name == "Owl" and not is_winning:
 		is_winning = true
 		var owl = get_node(owl_node)
 		var camera = get_node(camera_node)
