@@ -44,6 +44,10 @@ func _ready():
 	# Connect enter key in input field
 	equation_input.text_submitted.connect(_on_equation_submitted)
 	
+	# Ensure the Path2D has a Curve2D resource
+	if not graph_path.curve:
+		graph_path.curve = Curve2D.new()
+	
 	# Draw coordinate system
 	_draw_coordinate_system()
 	
@@ -51,11 +55,14 @@ func _ready():
 	owl.visible = false
 
 func _process(delta):
-	if owl_following:
-		owl.progress += OWL_SPEED * delta
-		if owl.progress >= graph_path.curve.get_baked_length():
+	if owl_following and total_path_length > 0:
+		owl_progress += OWL_SPEED * delta
+		var ratio = owl_progress / total_path_length
+		if ratio >= 1.0:
+			ratio = 1.0
 			owl_following = false
-
+		# Move owl along the path using progress_ratio property
+		owl.progress_ratio = ratio
 
 func _draw_coordinate_system():
 	# Clear existing axis and grid lines
@@ -154,8 +161,7 @@ func _clear_graphs():
 	
 	# Clear the path for the owl
 	current_path_points.clear()
-	if graph_path.curve:
-		graph_path.curve.clear_points()
+	graph_path.curve.clear_points()
 	owl.visible = false
 	owl_following = false
 	owl_progress = 0.0
@@ -242,21 +248,25 @@ func _plot_equation():
 
 	# Set the curve for the Path2D
 	if current_path_points.size() > 1:
-		if not graph_path.curve:
-			graph_path.curve = Curve2D.new()
 		graph_path.curve.clear_points()
 		for p in current_path_points:
 			graph_path.curve.add_point(p)
+		
+		# Calculate total path length
+		total_path_length = 0.0
+		for i in range(1, current_path_points.size()):
+			total_path_length += current_path_points[i-1].distance_to(current_path_points[i])
 			
 		# Start the owl
-		owl.progress = 0
+		owl.progress_ratio = 0.0
 		owl.visible = true
 		owl_following = true
+		owl_progress = 0.0
 
 
 func _evaluate_equation(equation: String, x: float) -> float:
-	# Simple equation parser - replace x with the actual value
-	var expr = equation.replace("x", str(x))
+	# Wrap x in parentheses to handle negative values correctly
+	var expr = equation.replace("x", "(" + str(x) + ")")
 	
 	# Handle common mathematical functions
 	expr = _replace_math_functions(expr)
