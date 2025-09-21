@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://uiixgj3t5uyk" path="res://tree_area4.gd" id="7_0yqnl"]
 [ext_resource type="Texture2D" uid="uid://dh3pq86oa3fwe" path="res://realcolumn.png" id="8_45t7y"]
 [ext_resource type="Script" uid="uid://dmdgn2ksty1pf" path="res://pillar_area.gd" id="9_lv3ay"]
+[ext_resource type="Script" path="res://resizable_panel.gd" id="6_abcde"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2vyst"]
 radius = 16.56
@@ -47,78 +48,55 @@ script = ExtResource("5_rrs1j")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GraphPath/Owl/Sprite2D/OwlArea"]
 shape = SubResource("CircleShape2D_2vyst")
 
-[node name="EquationUI" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
+[node name="EquationUI" type="PanelContainer" parent="."]
 offset_left = 10.0
 offset_top = 10.0
 offset_right = 400.0
-offset_bottom = 80.0
-metadata/_edit_use_anchors_ = true
+offset_bottom = 120.0
+script = ExtResource("6_abcde")
 
-[node name="Background" type="ColorRect" parent="EquationUI"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.1, 0.1, 0.1, 0.8)
-metadata/_edit_use_anchors_ = true
+[node name="VBoxContainer" type="VBoxContainer" parent="EquationUI"]
+layout_mode = 2
 
-[node name="Label" type="Label" parent="EquationUI"]
-layout_mode = 1
-offset_left = 10.0
-offset_top = 8.0
-offset_right = 100.0
-offset_bottom = 28.0
+[node name="HBoxContainer" type="HBoxContainer" parent="EquationUI/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="EquationUI/VBoxContainer/HBoxContainer"]
+layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 14
 text = "Equation:"
-metadata/_edit_use_anchors_ = true
 
-[node name="EquationInput" type="LineEdit" parent="EquationUI"]
-layout_mode = 1
-offset_left = 100.0
-offset_top = 5.0
-offset_right = 280.0
-offset_bottom = 30.0
+[node name="EquationInput" type="LineEdit" parent="EquationUI/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 placeholder_text = "e.g., x^2, sin(x), 2*x+1"
-metadata/_edit_use_anchors_ = true
 
-[node name="PlotButton" type="Button" parent="EquationUI"]
-layout_mode = 1
-offset_left = 290.0
-offset_top = 5.0
-offset_right = 380.0
-offset_bottom = 30.0
+[node name="PlotButton" type="Button" parent="EquationUI/VBoxContainer"]
+layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 12
 text = "Plot Graph"
-metadata/_edit_use_anchors_ = true
 
-[node name="ClearButton" type="Button" parent="EquationUI"]
-layout_mode = 1
-offset_left = 290.0
-offset_top = 35.0
-offset_right = 380.0
-offset_bottom = 60.0
+[node name="ClearButton" type="Button" parent="EquationUI/VBoxContainer"]
+layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 12
 text = "Clear All"
-metadata/_edit_use_anchors_ = true
 
-[node name="HelpLabel" type="Label" parent="EquationUI"]
-layout_mode = 1
-offset_left = 10.0
-offset_top = 44.0
-offset_right = 280.0
-offset_bottom = 74.0
+[node name="HelpLabel" type="Label" parent="EquationUI/VBoxContainer"]
+layout_mode = 2
 theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
 theme_override_font_sizes/font_size = 10
 text = "Examples: x^2, sin(x), cos(x), x^3-2*x+1, abs(x), sqrt(x)"
 autowrap_mode = 2
-metadata/_edit_use_anchors_ = true
+
+[node name="AIFunctionLabel" type="Label" parent="EquationUI/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 12
+text = "AI Owl Function: "
 
 [node name="GraphContainer" type="Node2D" parent="."]
 
