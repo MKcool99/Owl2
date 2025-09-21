@@ -11,7 +11,7 @@ func _process(delta):
 	# Get input direction
 	var move_direction = Vector2.ZERO
 	
-	if Input.is_action_pressed("space"):
+	if Input.is_action_pressed("ui_right"):
 		move_direction.x += 1
 	if Input.is_action_pressed("ui_left"):
 		move_direction.x -= 1
