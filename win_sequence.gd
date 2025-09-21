@@ -12,6 +12,7 @@ func _on_area_entered(area):
 		var camera = get_node(camera_node)
 		
 		if owl and camera:
+			owl.can_move = false
 			# Zoom into the owl
 			var tween = create_tween().set_parallel()
 			tween.tween_property(camera, "zoom", Vector2(4, 4), 2.0).set_trans(Tween.TRANS_LINEAR)

@@ -53,7 +53,7 @@ func _ready():
 	owl.visible = false
 
 func _process(delta):
-	if owl_following and total_path_length > 0:
+	if owl_following and total_path_length > 0 and owl.can_move:
 		owl_progress += OWL_SPEED * delta
 		var ratio = owl_progress / total_path_length
 		if ratio >= 1.0:
