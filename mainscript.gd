@@ -5,13 +5,6 @@ extends Node2D
 @onready var plot_button: Button = $EquationUI/PlotButton
 @onready var clear_button: Button = $EquationUI/ClearButton
 @onready var graph_container: Node2D = $GraphContainer
-@onready var owl: PathFollow2D = $GraphPath/Owl
-@onready var graph_path: Path2D = $GraphPath
-
-# Owl settings
-const OWL_SPEED = 150.0 # pixels per second
-var owl_is_moving = false
-var total_path_length = 0.0
 
 # Graph settings
 const GRAPH_WIDTH = 1152  # Screen width
@@ -32,10 +25,6 @@ var current_graphs: Array[Line2D] = []
 var axis_lines: Array[Line2D] = []
 var grid_lines: Array[Line2D] = []
 
-var current_path_points: PackedVector2Array = []
-var owl_progress = 0.0
-var owl_following = false
-
 func _ready():
 	# Connect button signals
 	plot_button.pressed.connect(_on_plot_button_pressed)
@@ -44,38 +33,8 @@ func _ready():
 	# Connect enter key in input field
 	equation_input.text_submitted.connect(_on_equation_submitted)
 	
-	# Ensure the Path2D has a Curve2D resource
-	if not graph_path.curve:
-		graph_path.curve = Curve2D.new()
-	
 	# Draw coordinate system
 	_draw_coordinate_system()
-	
-	# Hide the owl initially
-	owl.visible = false
-
-func _process(delta):
-	if owl_following and current_path_points.size() > 1:
-		owl_progress += OWL_SPEED * delta
-		var current_length = 0.0
-		for i in range(1, current_path_points.size()):
-			var p1 = current_path_points[i-1]
-			var p2 = current_path_points[i]
-			var segment_length = p1.distance_to(p2)
-			
-			if current_length + segment_length >= owl_progress:
-				# Interpolate position on the current segment
-				var distance_into_segment = owl_progress - current_length
-				var t = distance_into_segment / segment_length
-				owl.position = p1.lerp(p2, t)
-				break
-			
-			current_length += segment_length
-		
-		if owl_progress >= total_path_length:
-			owl_following = false
-			owl.position = current_path_points[current_path_points.size() - 1]
-
 
 func _draw_coordinate_system():
 	# Clear existing axis and grid lines
@@ -172,14 +131,6 @@ func _clear_graphs():
 		graph.queue_free()
 	current_graphs.clear()
 	
-	# Clear the path for the owl
-	current_path_points.clear()
-	graph_path.curve.clear_points()
-	owl.visible = false
-	owl_following = false
-	owl_progress = 0.0
-	total_path_length = 0.0
-	
 	# Redraw coordinate system
 	_draw_coordinate_system()
 
@@ -255,27 +206,6 @@ func _plot_equation():
 		line.points = segment_points
 		graph_container.add_child(line)
 		current_graphs.append(line)
-		
-		# Update the main path for the owl
-		current_path_points.append_array(segment_points)
-
-	# Set the curve for the Path2D
-	if current_path_points.size() > 1:
-		graph_path.curve.clear_points()
-		for p in current_path_points:
-			graph_path.curve.add_point(p)
-		
-		# Calculate total path length
-		total_path_length = 0.0
-		for i in range(1, current_path_points.size()):
-			total_path_length += current_path_points[i-1].distance_to(current_path_points[i])
-			
-		# Start the owl
-		owl.position = current_path_points[0]
-		owl.visible = true
-		owl_following = true
-		owl_progress = 0.0
-
 
 func _evaluate_equation(equation: String, x: float) -> float:
 	# Simple equation parser - replace x with the actual value
