@@ -71,23 +71,20 @@ func _draw_coordinate_system():
 	axis_lines.clear()
 	grid_lines.clear()
 	
-	var center_x = GRAPH_WIDTH / 2.0
-	var center_y = GRAPH_HEIGHT / 2.0
-	
-	# Draw main axes
+	# Draw main axes (origin at bottom-left)
 	var x_axis = Line2D.new()
 	x_axis.width = 1.5
 	x_axis.default_color = AXIS_COLOR
-	x_axis.add_point(Vector2(0, center_y))
-	x_axis.add_point(Vector2(GRAPH_WIDTH, center_y))
+	x_axis.add_point(Vector2(0, GRAPH_HEIGHT))
+	x_axis.add_point(Vector2(GRAPH_WIDTH, GRAPH_HEIGHT))
 	graph_container.add_child(x_axis)
 	axis_lines.append(x_axis)
 	
 	var y_axis = Line2D.new()
 	y_axis.width = 1.5
 	y_axis.default_color = AXIS_COLOR
-	y_axis.add_point(Vector2(center_x, 0))
-	y_axis.add_point(Vector2(center_x, GRAPH_HEIGHT))
+	y_axis.add_point(Vector2(0, 0))
+	y_axis.add_point(Vector2(0, GRAPH_HEIGHT))
 	graph_container.add_child(y_axis)
 	axis_lines.append(y_axis)
 	
@@ -95,54 +92,28 @@ func _draw_coordinate_system():
 	var grid_spacing = GRAPH_SCALE  # One unit spacing
 	
 	# Vertical grid lines
-	var x = center_x
+	var x = grid_spacing
 	while x < GRAPH_WIDTH:
+		var line = Line2D.new()
+		line.width = 0.5
+		line.default_color = GRID_COLOR
+		line.add_point(Vector2(x, 0))
+		line.add_point(Vector2(x, GRAPH_HEIGHT))
+		graph_container.add_child(line)
+		grid_lines.append(line)
 		x += grid_spacing
-		if x < GRAPH_WIDTH:
-			var line = Line2D.new()
-			line.width = 0.5
-			line.default_color = GRID_COLOR
-			line.add_point(Vector2(x, 0))
-			line.add_point(Vector2(x, GRAPH_HEIGHT))
-			graph_container.add_child(line)
-			grid_lines.append(line)
-	
-	x = center_x
-	while x > 0:
-		x -= grid_spacing
-		if x > 0:
-			var line = Line2D.new()
-			line.width = 0.5
-			line.default_color = GRID_COLOR
-			line.add_point(Vector2(x, 0))
-			line.add_point(Vector2(x, GRAPH_HEIGHT))
-			graph_container.add_child(line)
-			grid_lines.append(line)
 	
 	# Horizontal grid lines
-	var y = center_y
-	while y < GRAPH_HEIGHT:
-		y += grid_spacing
-		if y < GRAPH_HEIGHT:
-			var line = Line2D.new()
-			line.width = 0.5
-			line.default_color = GRID_COLOR
-			line.add_point(Vector2(0, y))
-			line.add_point(Vector2(GRAPH_WIDTH, y))
-			graph_container.add_child(line)
-			grid_lines.append(line)
-	
-	y = center_y
+	var y = GRAPH_HEIGHT - grid_spacing
 	while y > 0:
+		var line = Line2D.new()
+		line.width = 0.5
+		line.default_color = GRID_COLOR
+		line.add_point(Vector2(0, y))
+		line.add_point(Vector2(GRAPH_WIDTH, y))
+		graph_container.add_child(line)
+		grid_lines.append(line)
 		y -= grid_spacing
-		if y > 0:
-			var line = Line2D.new()
-			line.width = 0.5
-			line.default_color = GRID_COLOR
-			line.add_point(Vector2(0, y))
-			line.add_point(Vector2(GRAPH_WIDTH, y))
-			graph_container.add_child(line)
-			grid_lines.append(line)
 
 func _on_plot_button_pressed():
 	_plot_equation()
@@ -187,8 +158,8 @@ func _plot_equation():
 	
 	# Generate points for the graph
 	var points: PackedVector2Array = []
-	var x_min = -GRAPH_WIDTH / (2.0 * GRAPH_SCALE)
-	var x_max = GRAPH_WIDTH / (2.0 * GRAPH_SCALE)
+	var x_min = 0
+	var x_max = GRAPH_WIDTH / GRAPH_SCALE
 	var step = (x_max - x_min) / 1000.0  # 1000 points for smooth curve
 	
 	var previous_y = NAN
@@ -199,9 +170,9 @@ func _plot_equation():
 		var y = _evaluate_equation(equation, x)
 		
 		if not is_nan(y) and not is_inf(y):
-			# Convert mathematical coordinates to screen coordinates
-			var screen_x = GRAPH_WIDTH / 2.0 + x * GRAPH_SCALE
-			var screen_y = GRAPH_HEIGHT / 2.0 - y * GRAPH_SCALE
+			# Convert mathematical coordinates to screen coordinates (origin at bottom-left)
+			var screen_x = x * GRAPH_SCALE
+			var screen_y = GRAPH_HEIGHT - y * GRAPH_SCALE
 			
 			# Check for discontinuities (large jumps in y values)
 			if not is_nan(previous_y) and abs(y - previous_y) > 10:
